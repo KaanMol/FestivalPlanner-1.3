@@ -1,0 +1,68 @@
+name: Bug Report
+description: Report a bug
+title: "[Bug]: "
+labels: "bug :beetle:"
+body:
+- type: checkboxes
+  attributes:
+    label: Preflight Checklist
+    description: Please ensure you've completed all of the following.
+    options:
+      - label: I have searched the [issue tracker](https://github.com/KaanMol/FestivalPlanner-1.3/issues) for a feature request that matches the one I want to file, without success.
+        required: true
+- type: input
+  attributes:
+    label: Project version
+    description: What version of the project are you using?
+    placeholder: 1.13.0
+  validations:
+    required: true
+- type: dropdown
+  attributes:
+    label: What operating system are you using?
+    options:
+      - Windows
+      - macOS
+      - Ubuntu
+      - Other Linux
+      - Other (specify below)
+  validations:
+    required: true
+- type: input
+  attributes:
+    label: Operating System Version
+    description: What operating system version are you using? On Windows, click Start button > Settings > System > About. On macOS, click the Apple Menu > About This Mac. On Linux, use lsb_release or uname -a.
+    placeholder: "e.g. Windows 10 version 1909, macOS Catalina 10.15.7, or Ubuntu 20.04"
+  validations:
+    required: true
+- type: dropdown
+  attributes:
+    label: What arch are you using?
+    options:
+      - x64
+      - ia32
+      - arm64 (including Apple Silicon)
+      - Other (specify below)
+  validations:
+    required: true
+- type: input
+  attributes:
+    label: Last Known Working project version
+    description: What is the last version of the project this worked in, if applicable?
+    placeholder: 11.0.0
+- type: textarea
+  attributes:
+    label: Expected Behavior
+    description: A clear and concise description of what you expected to happen.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Actual Behavior
+    description: A clear description of what actually happens.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Additional Information
+    description: If your problem needs further explanation, please add more information here.
