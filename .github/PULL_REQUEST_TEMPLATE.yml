@@ -1,0 +1,38 @@
+#### Description of Change
+<!--
+Thank you for your Pull Request. Please provide a description above and review
+the requirements below.
+-->
+
+#### Checklist
+<!-- Remove items that do not apply. For completed items, change [ ] to [x]. -->
+
+- [ ] PR description included and stakeholders cc'd
+- [ ] `npm test` passes
+- [ ] tests are changed or added
+- [ ] relevant documentation is changed or added
+- [ ] Describe the change in a way relevant to developers, and are capitalized, punctuated, and past tense.
+
+#### Release Notes
+<!-- 
+Please add a one-line description for developers to read in the release notes, or 'none' if no notes relevant to developers
+
+Make this as easy to read as you can. Issue numbers are allowed and preferred if you have them available.
+Using the past tense, capitalizing and punctuating your notes is the most important thing for these release notes.
+
+The "-" shows what NOT to do and the "+" means how it should be noted.
+
+examples:
+- Notes: fix crash in register
++ Notes: Fixed crash in user registration. 
+- Notes: added requested feature <issue_number>
++ Notes: Added requested feature <issue_number>.
+
+Multi-line release notes:
+Notes:
+* Line 1
+* Line 2
+
+We already thank you! :)
+  -->
+Notes: 
