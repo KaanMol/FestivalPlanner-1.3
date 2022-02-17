@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Arena {
+public class Arena implements Serializable {
     /*
     Als eerste krijgen we de Object attributen voor deze klasse.
      */
@@ -29,6 +30,10 @@ public class Arena {
     }
 
     public static ArrayList<Arena> list = new ArrayList<>();
+
+    public void removeArena(Arena arena) {
+        Arena.list.remove(arena);
+    }
 
 
     @Override

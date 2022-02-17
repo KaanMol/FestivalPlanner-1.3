@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class Battle {
+public class Battle implements Serializable {
     /*
     Als eerste krijgen we de Object attributen voor deze klasse.
      */
@@ -23,6 +24,7 @@ public class Battle {
         this.arena = arena;
         this.trainer1 = trainer1;
         this.trainer2 = trainer2;
+        Battle.list.add(this);
     }
 
     /*
@@ -75,6 +77,12 @@ public class Battle {
 
     public void setTrainer2(Trainer trainer2) {
         this.trainer2 = trainer2;
+    }
+
+    public static ArrayList<Battle> list = new ArrayList<>();
+
+    public void removeBattle(Battle battle) {
+        Battle.list.remove(battle);
     }
 
     @Override

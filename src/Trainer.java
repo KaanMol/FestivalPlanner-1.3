@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Trainer {
+public class Trainer implements Serializable {
     /*
     Als eerste krijgen we de Object attributen voor deze klasse.
      */
@@ -38,6 +39,10 @@ public class Trainer {
     }
 
     public static ArrayList<Trainer> list = new ArrayList<>();
+
+    public void removeTrainer(Trainer trainer) {
+        Trainer.list.remove(trainer);
+    }
 
     @Override
     public String toString() {
