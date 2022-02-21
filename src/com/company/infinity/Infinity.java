@@ -1,40 +1,22 @@
 package com.company.infinity;
 
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-
 import org.jfree.fx.FXGraphics2D;
-
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.input.MouseEvent;
 
 public class Infinity extends Canvas {
     public static Infinity instance;
 
-    public ArrayList<Node> nodes = new ArrayList<>();
-    private int frameCount = 0;
-    private int fps = 0;
-    private LocalTime beginTime;
+    public NodeList nodeList = new NodeList();
+    public Mouse mouse = new Mouse();
     public FXGraphics2D context;
+    private FPS fps = new FPS();
+
     private AnimationTimer gameLoop = new AnimationTimer() {
         @Override
         public void handle(long now) {
-
+            Infinity.instance.update();
             Infinity.instance.render();
-
-            LocalTime currentTime = LocalTime.now();
-            if (Infinity.instance.beginTime.until(LocalTime.now(), ChronoUnit.SECONDS) >= 1) {
-                Infinity.instance.fps = Infinity.instance.frameCount;
-                
-                System.out.println("FPS: " + Infinity.instance.fps);
-
-                Infinity.instance.frameCount = 0;
-                Infinity.instance.beginTime = currentTime;
-            }
-            
-            Infinity.instance.frameCount++;
         }
     };
 
@@ -46,34 +28,42 @@ public class Infinity extends Canvas {
 
         this.context = new FXGraphics2D(this.getGraphicsContext2D());
 
-        this.setOnMouseExited(this::eventHandler);
-        this.setOnMouseMoved(this::eventHandler);
-        this.setOnMouseClicked(this::eventHandler);
+        this.setOnMouseExited(this.mouse::update);
+        this.setOnMouseMoved(this.mouse::update);
+        this.setOnMouseClicked(this.mouse::update);
+        
+        this.fps.setZIndex(1);
+        this.nodeList.add(this.fps);
     }
+    
+    public void update() {
+        boolean isHovering = false;
 
-    private void eventHandler(MouseEvent event) {
-        boolean hasHover = false;
-        for (Node node : this.nodes) {
-            if ((event.getX() > node.x && event.getX() < node.x + node.width.getValue()) && (event.getY() > node.y && event.getY() < node.y + node.height.getValue())) {
-                if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
-                    node.callback.accept(event);
-                }
+        for (Node node : this.nodeList.nodes) {
+            node.update();
+            
+            if (node.inBounds(this.mouse.getX(), this.mouse.getY())) {
                 node.hover = true;
-                hasHover = true;
+                isHovering = true;
+
+                if (this.mouse.getClicked()) {
+                    this.mouse.setClicked(false);
+                    node.callback.accept(this.mouse);
+                }
             } else {
                 node.hover = false;
             }
         }
 
-        if (hasHover == true) {
+        if (isHovering == true) {
             this.getScene().setCursor(javafx.scene.Cursor.HAND);
         } else {
             this.getScene().setCursor(javafx.scene.Cursor.DEFAULT);
         }
     }
-    
+
     public void render() {
-        for (Node node : this.nodes) {
+        for (Node node : this.nodeList.nodes) {
             node.draw();
         }
     }
@@ -83,7 +73,7 @@ public class Infinity extends Canvas {
     }
 
     public void start() {
-        this.beginTime = LocalTime.now();
+        this.fps.start();
         this.gameLoop.start();
     }
 }

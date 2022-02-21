@@ -16,13 +16,38 @@ public abstract class Node {
     public Color hoverColor = Color.GRAY;
     public boolean hover = false;
     public int zIndex = 0;
-    public Consumer<MouseEvent> callback = e -> {};
+    public Consumer<Mouse> callback = e -> {};
 
-    public void draw() {
-
+    public int getZIndex() {
+        return this.zIndex;
     }
 
-    public void onMouseClick(Consumer<MouseEvent> callback) {
+    public int setZIndex(int zIndex) {
+        return this.zIndex = zIndex;
+    }
+
+    public void draw() {}
+
+    public void update() {}
+
+    // public void hover(MouseEvent event) {
+    //     boolean inHorizontal = (event.getX() > this.x && event.getX() < this.x + this.width.getValue());
+    //     boolean inVertical = (event.getY() > this.y && event.getY() < this.y + this.height.getValue());
+    //     if (inHorizontal && inVertical) {
+    //         this.hover = true;
+    //     } else {
+    //         this.hover = false;
+    //     }
+    // }
+
+    public void onMouseClick(Consumer<Mouse> callback) {
         this.callback = callback;
+    }
+
+    public boolean inBounds(int x, int y) {
+        boolean inHorizontal = x > this.x && x < this.x + this.width.getValue();
+        boolean inVertical = y > this.y && y < this.y + this.height.getValue();
+        
+        return (inHorizontal && inVertical);
     }
 }

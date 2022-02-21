@@ -9,7 +9,7 @@ public class Button extends Node {
         this.height = height;
         this.text = text;
 
-        Infinity.instance.nodes.add(this);
+        Infinity.instance.nodeList.add(this);
     }
 
     @Override
