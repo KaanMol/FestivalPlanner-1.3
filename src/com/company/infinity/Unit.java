@@ -1,40 +1,38 @@
 package com.company.infinity;
 
 public class Unit {
-    private int value;
-    private Units unit;
+    private static final int VIEW_WIDTH = 0;
+    private static final int VIEW_HEIGHT = 1;
+    private static final int PIXEL = 2;
 
-    public Unit(int value, Units unit) {
+    private int value;
+    private int unit;
+
+    private Unit(int value, int unit) {
         this.value = value;
         this.unit = unit;
     }
 
     public static Unit vw(int viewWidth) {
-        return new Unit(viewWidth, Units.ViewWidth);
+        return new Unit(viewWidth, Unit.VIEW_WIDTH);
     }
 
     public static Unit vh(int viewHeight) {
-        return new Unit(viewHeight, Units.ViewHeight);
+        return new Unit(viewHeight, Unit.VIEW_HEIGHT);
     }
 
     public static Unit px(int pixel) {
-        return new Unit(pixel, Units.Pixel);
-    }
-
-    public static Unit pct(int percentage) {
-        return new Unit(percentage, Units.Percentage);
+        return new Unit(pixel, Unit.PIXEL);
     }
     
     public int getValue() {
         switch (this.unit) {
-            case ViewHeight:
-                return (int)Infinity.instance.getHeight() / 100 * this.value;
-            case ViewWidth:
-                return (int)Infinity.instance.getWidth() / 100 * this.value;
-            case Pixel:
+            case Unit.VIEW_HEIGHT:
+                return (int)(Infinity.instance.getHeight() / 100.0 * (double)this.value);
+            case Unit.VIEW_WIDTH:
+                return (int)(Infinity.instance.getWidth() / 100.0 * (double)this.value);
+            case Unit.PIXEL:
                 return this.value;
-            case Percentage:
-                return (int)Infinity.instance.getWidth() / 100 * this.value;
             default:
                 return 0;
         }

@@ -33,17 +33,13 @@ public class Main extends Application {
         primaryStage.show();
         infinity.start();
 
-        //Create 100000 buttons
-        for (int i = 0; i < 100000; i++) {
-            new Button(0, 0, Unit.px(100), Unit.px(50), "Create");
-        }
-        // Button create = new Button(0, 0, Unit.px(100), Unit.vh(50), "Create");
-        // Button edit = new Button(101, 0, Unit.px(100), Unit.px(50), "Edit");
-        // Button read = new Button(202, 0, Unit.vw(50), Unit.vh(50), "Read");
+        Button create = new Button(0, 0, Unit.px(100), Unit.vh(50), "Create");
+        Button edit = new Button(101, 0, Unit.px(100), Unit.px(50), "Edit");
+        Button read = new Button(202, 0, Unit.vw(50), Unit.vh(50), "Read");
 
-        // create.onMouseClick(e -> {
-        //     System.out.println("Button clicked!");
-        //     System.out.println(e.getX());
-        // });
+        create.onMouseClick(e -> {
+            System.out.println("Button clicked!");
+            System.out.println(e.getX());
+        });
     }
 }
