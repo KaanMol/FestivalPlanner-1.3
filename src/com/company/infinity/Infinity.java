@@ -19,7 +19,6 @@ public class Infinity extends Canvas {
     private LocalTime beginTime;
     public FXGraphics2D context;
     private AnimationTimer gameLoop = new AnimationTimer() {
-
         @Override
         public void handle(long now) {
 
@@ -42,36 +41,34 @@ public class Infinity extends Canvas {
     public Infinity(int width, int height) {
         this.setWidth(width);
         this.setHeight(height);
+
         Infinity.instance = this;
+
         this.context = new FXGraphics2D(this.getGraphicsContext2D());
 
+        this.setOnMouseExited(this::eventHandler);
         this.setOnMouseMoved(this::eventHandler);
         this.setOnMouseClicked(this::eventHandler);
-
-        this.widthProperty().addListener((observable, oldValue, newValue) -> {
-            this.setWidth(newValue.doubleValue());
-        });
-
-        this.heightProperty().addListener((observable, oldValue, newValue) -> {
-            this.setHeight(newValue.doubleValue());
-        });
     }
 
     private void eventHandler(MouseEvent event) {
+        boolean hasHover = false;
         for (Node node : this.nodes) {
-            if ((event.getX() > node.x && event.getX() < node.x + node.width) && (event.getY() > node.y && event.getY() < node.y + node.height)) {
+            if ((event.getX() > node.x && event.getX() < node.x + node.width.getValue()) && (event.getY() > node.y && event.getY() < node.y + node.height.getValue())) {
                 if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
                     node.callback.accept(event);
                 }
-
-                //todo fix me
                 node.hover = true;
-                this.getScene().setCursor(javafx.scene.Cursor.HAND);
-                break;
+                hasHover = true;
             } else {
                 node.hover = false;
-                this.getScene().setCursor(javafx.scene.Cursor.DEFAULT);
             }
+        }
+
+        if (hasHover == true) {
+            this.getScene().setCursor(javafx.scene.Cursor.HAND);
+        } else {
+            this.getScene().setCursor(javafx.scene.Cursor.DEFAULT);
         }
     }
     
