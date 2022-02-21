@@ -8,8 +8,8 @@ import javafx.scene.input.MouseEvent;
 public abstract class Node {
     public int x = 0;
     public int y = 0;
-    public int width = 0;
-    public int height = 0;
+    public Unit width = Unit.px(0);
+    public Unit height = Unit.px(0);
     public String text = "Button";
     public Color color = Color.BLACK;
     public Color textColor = Color.WHITE;

@@ -2,7 +2,7 @@ package com.company.infinity;
 import java.awt.FontMetrics;
 
 public class Button extends Node {
-    public Button(int x, int y, int width, int height, String text) {
+    public Button(int x, int y, Unit width, Unit height, String text) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -25,9 +25,9 @@ public class Button extends Node {
             Infinity.instance.context.setColor(this.color);
         }
 
-        Infinity.instance.context.fillRect(this.x, this.y, this.width, this.height);
+        Infinity.instance.context.fillRect(this.x, this.y, this.width.getValue(), this.height.getValue());
         
         Infinity.instance.context.setColor(this.textColor);
-        Infinity.instance.context.drawString(this.text, this.x + ((this.width - fontWidth) / 2), this.y + ((this.height + fontHeight) / 2));
+        Infinity.instance.context.drawString(this.text, this.x + ((this.width.getValue() - fontWidth) / 2), this.y + ((this.height.getValue() + fontHeight) / 2));
     }
 }
