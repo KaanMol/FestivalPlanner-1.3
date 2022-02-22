@@ -2,6 +2,7 @@ package com.company;
 
 import com.company.infinity.Button;
 import com.company.infinity.Infinity;
+import com.company.infinity.Table;
 import com.company.infinity.Unit;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -33,13 +34,29 @@ public class Main extends Application {
         primaryStage.show();
         infinity.start();
 
-        Button create = new Button(0, 0, Unit.px(100), Unit.vh(50), "Create");
-        Button edit = new Button(101, 0, Unit.px(100), Unit.px(50), "Edit");
-        Button read = new Button(202, 0, Unit.vw(50), Unit.vh(50), "Read");
+        // Button create = new Button(0, 0, Unit.px(100), Unit.vh(50), "Create");
+        // Button edit = new Button(101, 0, Unit.px(100), Unit.px(50), "Edit");
+        // Button read = new Button(202, 0, Unit.vw(50), Unit.vh(50), "Read");
 
-        create.onMouseClick(e -> {
-            System.out.println("Button clicked!");
-            System.out.println(e.getX());
-        });
+        // create.onMouseClick(e -> {
+        //     System.out.println("Button clicked!");
+        //     System.out.println(e.getX());
+        // });
+
+        Table table = new Table(0, 0, Unit.vw(100), Unit.vh(100));
+        table.addHeader("Lol");
+        table.addHeader("Lol");
+        table.addHeader("Lol");
+        table.addHeader("Lol");
+        table.addHeader("Lol");
+        table.addHeader("Lol");
+
+        table.addRow("Lol");
+        table.addRow("Lol");
+        table.addRow("Lol");
+        table.addRow("Lol");
+        table.addRow("Lol");
+        table.addRow("Lol");
+        table.addRow("Lol");
     }
 }
