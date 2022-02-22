@@ -1,5 +1,7 @@
 package com.company.infinity;
 
+import java.awt.Color;
+
 import org.jfree.fx.FXGraphics2D;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
@@ -37,6 +39,9 @@ public class Infinity extends Canvas {
     }
     
     public void update() {
+        this.context.setColor(Color.WHITE);
+        this.context.fillRect(0, 0, (int)this.getWidth(), (int)this.getHeight());
+
         boolean isHovering = false;
 
         for (Node node : this.nodeList.nodes) {
