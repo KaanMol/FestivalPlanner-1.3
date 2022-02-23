@@ -39,14 +39,28 @@ public class BattlePopup extends Popup<Battle> {
         VBox base = new VBox(trainerBox, arena, timeBox);
 
         setInputArea(base);
+
+        if (item == null)
+            return;
+        beginTime.setText(item.getBeginTime().toString());
+        endTime.setText(item.getEndTime().toString());
+        arena.setValue(item.getArena());
+        trainer1.setValue(item.getTrainer1());
+        trainer2.setValue(item.getTrainer2());
     }
 
     @Override
     public void apply() {
-        delete();
-        new Battle(LocalTime.parse(beginTime.getText()), LocalTime.parse(endTime.getText()),
-                arena.getValue(), trainer1.getValue(), trainer2.getValue());
-        System.out.println(Battle.list);
+        if (item == null) {
+            new Battle(LocalTime.parse(beginTime.getText()), LocalTime.parse(endTime.getText()),
+                    arena.getValue(), trainer1.getValue(), trainer2.getValue());
+        } else {
+            item.setBeginTime(LocalTime.parse(beginTime.getText()));
+            item.setEndTime(LocalTime.parse(endTime.getText()));
+            item.setArena(arena.getValue());
+            item.setTrainer1(trainer1.getValue());
+            item.setTrainer2(trainer2.getValue());
+        }
     }
 
     @Override

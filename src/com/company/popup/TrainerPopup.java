@@ -24,12 +24,21 @@ public class TrainerPopup extends Popup<Trainer>{
         HBox pokemonBox = new HBox(label2, pokemon);
 
         setInputArea(new VBox(trainerBox, pokemonBox));
+
+        if (item == null)
+            return;
+        trainer.setText(item.getName());
+        pokemon.setText(item.getPokemon());
     }
 
     @Override
     public void apply() {
-        delete();
-        new Trainer(trainer.getText(), pokemon.getText());
+        if (item == null) {
+            new Trainer(trainer.getText(), pokemon.getText());
+        } else {
+            item.setName(trainer.getText());
+            item.setPokemon(pokemon.getText());
+        }
     }
 
     @Override
