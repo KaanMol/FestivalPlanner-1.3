@@ -5,8 +5,9 @@ import org.jfree.fx.FXGraphics2D;
 import java.awt.Color;
 
 public class Table extends Node {
-    
-    private ArrayList<String> headers = new ArrayList<>();
+    private Unit rowWidth = Unit.vw(10);
+    private Unit columnHeight = Unit.vh(10);
+    private ArrayList<String> columns = new ArrayList<>();
     private ArrayList<String> rows = new ArrayList<>();
 
     public Table(int x, int y, Unit width, Unit height) {
@@ -14,11 +15,13 @@ public class Table extends Node {
         this.y = y;
         this.width = width;
         this.height = height;
+        System.out.println(this.width.getValue());
+        System.out.println(this.height.getValue());
         Infinity.instance.nodeList.add(this);
     }
 
-    public void addHeader(String header) {
-        this.headers.add(header);
+    public void addColumn(String header) {
+        this.columns.add(header);
     }
 
     public void addRow(String row) {
@@ -35,19 +38,48 @@ public class Table extends Node {
     public void draw() {
         FXGraphics2D context = Infinity.instance.context;
 
-        Unit columnWidth = Unit.vw(100 / this.headers.size());
-        Unit rowHeight = Unit.vh(100 / this.rows.size() + 1);
+        int columnWidth = this.width.getValue() / this.columns.size();
+        int rowHeight = this.height.getValue() / this.rows.size();
 
-        Color[] color = { Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.CYAN, Color.MAGENTA };
+        Color[] color = { Color.RED, Color.GREEN, Color.BLUE, Color.ORANGE, Color.CYAN, Color.MAGENTA };
 
-        for (int i = 0; i < this.headers.size(); i++) {
-            context.setColor(color[i % color.length]);
-            context.drawLine(x + columnWidth.getValue() * i, y, x + columnWidth.getValue() * i, height.getValue());
-        }
+        for (int rows = 0; rows < this.rows.size(); rows++) {
+            for (int columns = 0; columns < this.columns.size(); columns++) {
+                int leftX = this.x + columnWidth * (columns - 1) + 100;
+                int topY = this.y + rowHeight * (rows - 1) + 50;
+                int width = columnWidth;
+                int height = rowHeight;
 
-        for (int i = 0; i < this.rows.size(); i++) {
-            context.setColor(color[i % color.length]);
-            context.drawLine(x, y + rowHeight.getValue() * i, width.getValue(), y + rowHeight.getValue() * i);
+                if (rows == 0 || columns == 0) {
+                    context.setColor(color[(rows + columns) % color.length]);
+                    // context.setColor(Color.BLACK);
+                    // leftX = this.x + columnWidth * columns;
+                    // topY = this.y + rowHeight * rows;
+
+                    if (rows == 0 && columns == 0) {
+                        leftX = this.x;
+                        topY = this.y;
+                        width = 100;
+                        height = 50;
+                    }
+
+                    if (rows == 0) {
+                        width = columnWidth;
+                        height = 50;
+                    }
+
+                    if (columns == 0) {
+                        height = rowHeight;
+                        width = 100;
+                    }
+                } else {
+                    context.setColor(color[(rows + columns) % color.length]);
+                }
+                
+                context.fillRect(leftX, topY, width, height);
+                context.setColor(Color.WHITE);
+                context.drawString(this.columns.get(columns), leftX + (width / 2) - (context.getFontMetrics().stringWidth(this.columns.get(columns)) / 2), topY + (height / 2) + (context.getFontMetrics().getHeight() / 2));
+            }
         }
     }
 
