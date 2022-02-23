@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 public abstract class Popup<T> {
     private Stage stage;
     private Node inputArea;
-    private Parent transferButtons;
     private Button cancelButton;
     private Button applyButton;
     private Button deleteButton;
@@ -24,6 +23,7 @@ public abstract class Popup<T> {
         cancelButton = new Button("Cancel");
         applyButton = new Button(item == null ? "Create" : "Apply");
         HBox standardButtons = new HBox(cancelButton, applyButton);
+        Parent transferButtons;
         if (item == null) {
             transferButtons = standardButtons;
         } else {
@@ -38,14 +38,28 @@ public abstract class Popup<T> {
         stage.show();
     }
 
+    /**
+     * sets the node that manages the input area for the item
+     *
+     * @param inputArea the area to manage the item in
+     */
     public void setInputArea(Node inputArea) {
         this.inputArea = inputArea;
     }
 
+    /**
+     * applies all changes to the item
+     */
     public abstract void apply();
 
+    /**
+     * deletes the item
+     */
     public abstract void delete();
 
+    /**
+     * closes the popup
+     */
     public void close() {
         stage.close();
     }
