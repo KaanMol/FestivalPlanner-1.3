@@ -89,7 +89,7 @@ public class Main extends Application {
         
         table.addColumn("");
         for (int arena = 0; arena < Arena.list.size(); arena++) {
-            table.addColumn("Arena " + Arena.list.get(arena).getArenaName());
+            table.addColumn(Arena.list.get(arena).getArenaName());
         }
 
         table.addRow("");
@@ -97,11 +97,11 @@ public class Main extends Application {
             table.addRow(i + "");
         }
 
-        Battle battle = Battle.list.get(0);
-        int xMultiplier = battle.getEndTime().getHour() - battle.getBeginTime().getHour();
-        TableCell cell = new TableCell(battle.getTrainer1().getName() + " vs " + battle.getTrainer2().getName());
+        // Battle battle = Battle.list.get(0);
+        // int xMultiplier = battle.getEndTime().getHour() - battle.getBeginTime().getHour();
+        // TableCell cell = new TableCell(battle.getTrainer1().getName() + " vs " + battle.getTrainer2().getName());
         
-        table.addCell(0, battle.getBeginTime().getHour() - minHour, xMultiplier, 0, cell);
+        // table.addCell(0, battle.getBeginTime().getHour() - minHour, xMultiplier, 0, cell);
 
     }
 }
