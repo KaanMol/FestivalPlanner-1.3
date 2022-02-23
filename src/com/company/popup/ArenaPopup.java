@@ -14,12 +14,19 @@ public class ArenaPopup extends Popup<Arena> {
         Label label = new Label("Arena name:");
         textField = new TextField();
         setInputArea(new HBox(label, textField));
+
+        if (item == null)
+            return;
+        textField.setText(item.getArenaName());
     }
 
     @Override
     public void apply() {
-        delete();
-        new Arena(textField.getText());
+        if (item == null) {
+            new Arena(textField.getText());
+        } else {
+            item.setArenaName(textField.getText());
+        }
     }
 
     @Override
