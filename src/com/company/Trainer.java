@@ -1,3 +1,5 @@
+package com.company;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -46,7 +48,7 @@ public class Trainer implements Serializable {
 
     @Override
     public String toString() {
-        return "Trainer{" +
+        return "com.company.Trainer{" +
                 "name='" + name + '\'' +
                 ", pokemon='" + pokemon + '\'' +
                 '}';

@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 public abstract class Popup<T> {
     private Stage stage;
     private Node inputArea;
+    private Parent transferButtons;
     private Button cancelButton;
     private Button applyButton;
     private Button deleteButton;
@@ -23,7 +24,6 @@ public abstract class Popup<T> {
         cancelButton = new Button("Cancel");
         applyButton = new Button(item == null ? "Create" : "Apply");
         HBox standardButtons = new HBox(cancelButton, applyButton);
-        Parent transferButtons;
         if (item == null) {
             transferButtons = standardButtons;
         } else {
@@ -31,11 +31,6 @@ public abstract class Popup<T> {
             transferButtons = new VBox(standardButtons, deleteButton);
         }
         this.initialiseButtons();
-
-        Scene scene = new Scene(new VBox(inputArea, transferButtons));
-        this.stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
     }
 
     /**
@@ -45,6 +40,10 @@ public abstract class Popup<T> {
      */
     public void setInputArea(Node inputArea) {
         this.inputArea = inputArea;
+        Scene scene = new Scene(new VBox(inputArea, transferButtons));
+        this.stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**
@@ -70,9 +69,10 @@ public abstract class Popup<T> {
             this.apply();
             this.close();
         });
-        deleteButton.setOnAction(e -> {
-            this.delete();
-            this.close();
-        });
+        if (deleteButton != null)
+            deleteButton.setOnAction(e -> {
+                this.delete();
+                this.close();
+            });
     }
 }
