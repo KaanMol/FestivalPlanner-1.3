@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Schedule implements Serializable {
 
-    private static ArrayList<Battle> battles = new ArrayList<>();
+    private static ArrayList<Battle> battles = Battle.list;
     private ArrayList<Integer> randomtest = new ArrayList<>();
 
     public Schedule() {

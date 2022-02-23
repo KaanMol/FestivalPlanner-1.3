@@ -51,7 +51,6 @@ public class Main extends Application {
         new Arena("School");
         new Trainer("Niels", "Dirk");
         new Trainer("Owen", "Kaan");
-        new BattlePopup(null);
 
         // Button create = new Button(0, 0, Unit.px(100), Unit.vh(50), "Create");
         // Button edit = new Button(101, 0, Unit.px(100), Unit.px(50), "Edit");
@@ -62,6 +61,7 @@ public class Main extends Application {
 
         create.onMouseClick(e -> {
             System.out.println("Create triggered!");
+            new BattlePopup(null);
         });
 
         musicPlay.onMouseClick(e -> {
