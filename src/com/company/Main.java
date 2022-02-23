@@ -5,6 +5,7 @@ import com.company.infinity.Infinity;
 import com.company.infinity.Table;
 import com.company.infinity.Unit;
 import com.company.popup.ArenaPopup;
+import com.company.popup.BattlePopup;
 import com.company.popup.TrainerPopup;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -36,8 +37,10 @@ public class Main extends Application {
         primaryStage.show();
         infinity.start();
 
-        new Trainer("Merijn", "Richard");
-        TrainerPopup popup = new TrainerPopup(new Trainer("Wouter", "Niels"));
+        new Arena("School");
+        new Trainer("Niels", "Dirk");
+        new Trainer("Owen", "Kaan");
+        new BattlePopup(null);
 
         // Button create = new Button(0, 0, Unit.px(100), Unit.vh(50), "Create");
         // Button edit = new Button(101, 0, Unit.px(100), Unit.px(50), "Edit");

@@ -83,8 +83,8 @@ public class Battle implements Serializable {
 
     public static ArrayList<Battle> list = new ArrayList<>();
 
-    public void removeBattle(Battle battle) {
-        Battle.list.remove(battle);
+    public void remove() {
+        Battle.list.remove(this);
     }
 
     @Override

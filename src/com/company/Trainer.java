@@ -48,7 +48,7 @@ public class Trainer implements Serializable {
 
     @Override
     public String toString() {
-        return "com.company.Trainer{" +
+        return "Trainer{" +
                 "name='" + name + '\'' +
                 ", pokemon='" + pokemon + '\'' +
                 '}';
