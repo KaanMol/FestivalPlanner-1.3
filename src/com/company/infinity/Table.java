@@ -45,40 +45,51 @@ public class Table extends Node {
 
         for (int rows = 0; rows < this.rows.size(); rows++) {
             for (int columns = 0; columns < this.columns.size(); columns++) {
-                int leftX = this.x + columnWidth * (columns - 1) + 100;
-                int topY = this.y + rowHeight * (rows - 1) + 50;
+                int leftX = this.x + columnWidth * columns;
+                int topY = this.y + rowHeight * rows;
                 int width = columnWidth;
                 int height = rowHeight;
 
-                if (rows == 0 || columns == 0) {
-                    context.setColor(color[(rows + columns) % color.length]);
-                    // context.setColor(Color.BLACK);
-                    // leftX = this.x + columnWidth * columns;
-                    // topY = this.y + rowHeight * rows;
-
-                    if (rows == 0 && columns == 0) {
-                        leftX = this.x;
-                        topY = this.y;
-                        width = 100;
-                        height = 50;
-                    }
-
-                    if (rows == 0) {
-                        width = columnWidth;
-                        height = 50;
-                    }
-
-                    if (columns == 0) {
-                        height = rowHeight;
-                        width = 100;
-                    }
-                } else {
-                    context.setColor(color[(rows + columns) % color.length]);
-                }
                 
-                context.fillRect(leftX, topY, width, height);
-                context.setColor(Color.WHITE);
-                context.drawString(this.columns.get(columns), leftX + (width / 2) - (context.getFontMetrics().stringWidth(this.columns.get(columns)) / 2), topY + (height / 2) + (context.getFontMetrics().getHeight() / 2));
+
+                if (rows == 0 || columns == 0) {
+                    context.setColor(Color.LIGHT_GRAY);
+                    context.fillRect(leftX, topY, width, height);
+                //     // leftX = this.x + columnWidth * columns;
+                //     // topY = this.y + rowHeight * rows;
+
+                //     // if (rows == 0 && columns == 0) {
+                //     //     leftX = this.x;
+                //     //     topY = this.y;
+                //     //     width = 100;
+                //     //     height = 50;
+                //     // }
+
+                //     // if (rows == 0) {
+                //     //     width = columnWidth;
+                //     //     height = 50;
+                //     // }
+
+                //     // if (columns == 0) {
+                //     //     height = rowHeight;
+                //     //     width = 100;
+                //     // }
+                } else {
+                    context.setColor(Color.LIGHT_GRAY);
+                    context.drawRect(leftX, topY, width, height);
+                    // context.setColor(color[(rows + columns) % color.length]);
+                }
+                // context.fillRect(leftX, topY, width, height);
+                context.setColor(Color.BLACK);
+                    
+                if (rows == 0 || columns == 0) {
+                    //draw columns on top and hours on left and center the text
+                    context.drawString(this.columns.get(columns), leftX + (width / 2) - (context.getFontMetrics().stringWidth(this.columns.get(columns)) / 2), topY + (height / 2) + (context.getFontMetrics().getHeight() / 2));
+                    context.drawString(this.rows.get(rows), leftX + (width / 2) - (context.getFontMetrics().stringWidth(this.columns.get(columns)) / 2), topY + (height / 2) + (context.getFontMetrics().getHeight() / 2));
+
+                    // context.drawString(this.columns.get(columns), leftX + (width / 2) - (context.getFontMetrics().stringWidth(this.columns.get(columns)) / 2), topY + (height / 2) + (context.getFontMetrics().getHeight() / 2));
+                    // context.drawString(this.rows.get(rows), leftX + width / 2, topY + height / 2);
+                }
             }
         }
     }

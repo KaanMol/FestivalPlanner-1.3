@@ -83,7 +83,7 @@ public class Main extends Application {
         table.addColumn("Arena 5");
 
         int minHour = 9;
-        int maxHour = 18;
+        int maxHour = 20;
 
         table.addRow("");
         for (int i = minHour; i < maxHour; i++) {
