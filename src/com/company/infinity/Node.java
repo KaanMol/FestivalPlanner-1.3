@@ -2,7 +2,6 @@ package com.company.infinity;
 
 import java.awt.Color;
 import java.util.function.Consumer;
-import javafx.scene.input.MouseEvent;
 
 
 public abstract class Node {
