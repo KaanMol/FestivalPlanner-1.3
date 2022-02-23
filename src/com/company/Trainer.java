@@ -42,8 +42,8 @@ public class Trainer implements Serializable {
 
     public static ArrayList<Trainer> list = new ArrayList<>();
 
-    public void removeTrainer(Trainer trainer) {
-        Trainer.list.remove(trainer);
+    public void remove() {
+        Trainer.list.remove(this);
     }
 
     @Override

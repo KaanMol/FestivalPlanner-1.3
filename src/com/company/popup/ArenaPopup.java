@@ -7,6 +7,7 @@ import javafx.scene.layout.HBox;
 
 public class ArenaPopup extends Popup<Arena> {
     private TextField textField;
+
     public ArenaPopup(Arena item) {
         super(item);
 
