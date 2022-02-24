@@ -7,6 +7,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.StringConverter;
 
 import java.time.LocalTime;
 
@@ -39,6 +40,40 @@ public class BattlePopup extends Popup<Battle> {
         VBox base = new VBox(trainerBox, arena, timeBox);
 
         setInputArea(base);
+
+        trainer1.setConverter(new StringConverter<Trainer>() {
+            @Override
+            public String toString(Trainer object) {
+                return object.getName();
+            }
+
+            @Override
+            public Trainer fromString(String string) {
+                return null;
+            }
+        });
+        trainer2.setConverter(new StringConverter<Trainer>() {
+            @Override
+            public String toString(Trainer object) {
+                return object.getName();
+            }
+
+            @Override
+            public Trainer fromString(String string) {
+                return null;
+            }
+        });
+        arena.setConverter(new StringConverter<Arena>() {
+            @Override
+            public String toString(Arena object) {
+                return object.getArenaName();
+            }
+
+            @Override
+            public Arena fromString(String string) {
+                return null;
+            }
+        });
 
         if (item == null)
             return;
