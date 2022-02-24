@@ -11,12 +11,12 @@ import javafx.util.StringConverter;
 
 import java.time.LocalTime;
 
-public class BattlePopup extends Popup<Battle> {
-    private ComboBox<Trainer> trainer1;
-    private ComboBox<Trainer> trainer2;
-    private ComboBox<Arena> arena;
-    private TextField beginTime;
-    private TextField endTime;
+public abstract class BattlePopup extends Popup<Battle> {
+    protected ComboBox<Trainer> trainer1;
+    protected ComboBox<Trainer> trainer2;
+    protected ComboBox<Arena> arena;
+    protected TextField beginTime;
+    protected TextField endTime;
 
     public BattlePopup(Battle item) {
         super(item);
@@ -74,34 +74,11 @@ public class BattlePopup extends Popup<Battle> {
                 return null;
             }
         });
-
-        if (item == null)
-            return;
-        beginTime.setText(item.getBeginTime().toString());
-        endTime.setText(item.getEndTime().toString());
-        arena.setValue(item.getArena());
-        trainer1.setValue(item.getTrainer1());
-        trainer2.setValue(item.getTrainer2());
     }
 
     @Override
-    public void apply() {
-        if (item == null) {
-            new Battle(LocalTime.parse(beginTime.getText()), LocalTime.parse(endTime.getText()),
-                    arena.getValue(), trainer1.getValue(), trainer2.getValue());
-        } else {
-            item.setBeginTime(LocalTime.parse(beginTime.getText()));
-            item.setEndTime(LocalTime.parse(endTime.getText()));
-            item.setArena(arena.getValue());
-            item.setTrainer1(trainer1.getValue());
-            item.setTrainer2(trainer2.getValue());
-        }
-    }
+    public abstract void apply();
 
     @Override
-    public void delete() {
-        if (item != null) {
-            item.remove();
-        }
-    }
+    public abstract void delete();
 }

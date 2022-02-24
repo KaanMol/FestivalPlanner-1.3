@@ -11,6 +11,7 @@ import com.company.infinity.TableCell;
 import com.company.infinity.Unit;
 import com.company.popup.ArenaPopup;
 import com.company.popup.BattlePopup;
+import com.company.popup.CreateBattlePopup;
 import com.company.popup.TrainerPopup;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -69,7 +70,7 @@ public class Main extends Application {
 
         create.onMouseClick(e -> {
             System.out.println("Create triggered!");
-            new BattlePopup(null);
+            new CreateBattlePopup();
         });
 
         musicPlay.onMouseClick(e -> {
