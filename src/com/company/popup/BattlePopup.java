@@ -75,10 +75,4 @@ public abstract class BattlePopup extends Popup<Battle> {
             }
         });
     }
-
-    @Override
-    public abstract void apply();
-
-    @Override
-    public abstract void delete();
 }

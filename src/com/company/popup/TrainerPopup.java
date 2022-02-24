@@ -25,10 +25,4 @@ public abstract class TrainerPopup extends Popup<Trainer>{
 
         setInputArea(new VBox(trainerBox, pokemonBox));
     }
-
-    @Override
-    public abstract void apply();
-
-    @Override
-    public abstract void delete();
 }

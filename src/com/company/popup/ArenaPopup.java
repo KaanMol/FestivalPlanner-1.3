@@ -15,10 +15,4 @@ public abstract class ArenaPopup extends Popup<Arena> {
         textField = new TextField();
         setInputArea(new HBox(label, textField));
     }
-
-    @Override
-    public abstract void apply();
-
-    @Override
-    public abstract void delete();
 }
