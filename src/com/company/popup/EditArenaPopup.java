@@ -5,6 +5,7 @@ import com.company.Arena;
 public class EditArenaPopup extends ArenaPopup {
     public EditArenaPopup(Arena item) {
         super(item);
+        textField.setText(item.getArenaName());
     }
 
     @Override
