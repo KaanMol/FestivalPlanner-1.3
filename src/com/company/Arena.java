@@ -1,3 +1,5 @@
+package com.company;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -31,8 +33,8 @@ public class Arena implements Serializable {
 
     public static ArrayList<Arena> list = new ArrayList<>();
 
-    public void removeArena(Arena arena) {
-        Arena.list.remove(arena);
+    public void remove() {
+        Arena.list.remove(this);
     }
 
 
