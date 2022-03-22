@@ -1,6 +1,8 @@
 package com.company.infinity;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import org.jfree.fx.FXGraphics2D;
 import java.awt.Color;
 
@@ -19,15 +21,33 @@ public class Table extends Node {
         Infinity.instance.nodeList.add(this);
     }
 
+    public void columnsFromList(List columns) {
+        for (Object column : columns) {
+            this.addColumn(column.toString());
+        }
+    }
+
     public void addColumn(String header) {
         if (this.columns.size() == 0) {
             this.columns.add("");
         }
-        
+
         this.columns.add(header);
     }
 
+    
+    public void rowsFromList(List rows) {
+        for (Object row : rows) {
+            this.addColumn(row.toString());
+        }
+    }
+
+
     public void addRow(String row) {
+        if (this.rows.size() == 0) {
+            this.rows.add("");
+        }
+
         this.rows.add(row);
     }
 
@@ -38,10 +58,10 @@ public class Table extends Node {
         child.x = this.x + this.columnWidth.getValue() * (child.xIndex + 1);
         child.y = this.y + this.rowHeight.getValue() * (child.yIndex + 1);
 
-        child.xMultipler = xMultiplier;
-        child.yMultipler = yMultiplier;
-        child.width = Unit.px(Math.round(this.columnWidth.getValue() * child.xMultipler));
-        child.height = Unit.px(Math.round(this.rowHeight.getValue() * child.yMultipler));
+        child.xMultiplier = xMultiplier;
+        child.yMultiplier = yMultiplier;
+        child.width = Unit.px(Math.round(this.columnWidth.getValue() * child.xMultiplier));
+        child.height = Unit.px(Math.round(this.rowHeight.getValue() * child.yMultiplier));
         child.zIndex = this.zIndex + 1;
         child.parent = this + "";
 
@@ -63,8 +83,8 @@ public class Table extends Node {
             if (child.parent.equals(this + "")) {
                 child.x = this.x + this.columnWidth.getValue() * (child.xIndex + 1);
                 child.y = this.y + this.rowHeight.getValue() * (child.yIndex + 1);
-                child.width = Unit.px(Math.round(this.columnWidth.getValue() * child.xMultipler));
-                child.height = Unit.px(Math.round(this.rowHeight.getValue() * child.yMultipler));
+                child.width = Unit.px(Math.round(this.columnWidth.getValue() * child.xMultiplier));
+                child.height = Unit.px(Math.round(this.rowHeight.getValue() * child.yMultiplier));
                 child.zIndex = this.zIndex + 1;
             }
         }

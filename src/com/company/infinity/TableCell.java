@@ -5,11 +5,11 @@ import java.awt.Color;
 import org.jfree.fx.FXGraphics2D;
 public class TableCell extends Node {
     public String parent = "global";
-    public float xMultipler = 1;
-    public float yMultipler = 1;
+    public float xMultiplier = 1;
+    public float yMultiplier = 1;
     public int xIndex = 0;
     public int yIndex = 0;
-    
+
     public TableCell (String text) {
         this.text = text;
         this.setZIndex(10);
