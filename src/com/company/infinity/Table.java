@@ -38,7 +38,7 @@ public class Table extends Node {
     
     public void rowsFromList(List rows) {
         for (Object row : rows) {
-            this.addColumn(row.toString());
+            this.addRow(row.toString());
         }
     }
 
