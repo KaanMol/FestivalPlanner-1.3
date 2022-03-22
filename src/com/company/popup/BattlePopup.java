@@ -9,8 +9,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 
-import java.time.LocalTime;
-
 public abstract class BattlePopup extends Popup<Battle> {
     protected ComboBox<Trainer> trainer1;
     protected ComboBox<Trainer> trainer2;

@@ -2,7 +2,6 @@ package com.company.infinity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.jfree.fx.FXGraphics2D;
 import java.awt.Color;
 

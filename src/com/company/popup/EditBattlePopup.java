@@ -1,8 +1,15 @@
 package com.company.popup;
 
+import com.company.Arena;
 import com.company.Battle;
+import com.company.Config;
+import com.company.infinity.Infinity;
+import com.company.infinity.Node;
+import com.company.infinity.Table;
+import com.company.infinity.TableCell;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class EditBattlePopup extends BattlePopup {
     public EditBattlePopup(Battle item) {

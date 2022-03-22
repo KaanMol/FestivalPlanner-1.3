@@ -1,8 +1,8 @@
 package com.company.infinity;
 
 import java.awt.Color;
-
 import org.jfree.fx.FXGraphics2D;
+
 public class TableCell extends Node {
     public String parent = "global";
     public float xMultiplier = 1;
