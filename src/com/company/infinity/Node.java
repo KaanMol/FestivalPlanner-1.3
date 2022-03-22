@@ -9,15 +9,21 @@ public abstract class Node {
     public int y = 0;
     public Unit width = Unit.px(0);
     public Unit height = Unit.px(0);
+    public boolean hover = false;
+    protected boolean hasHover = false;
+    public Consumer<Mouse> callback = e -> {};
+    public int zIndex = 0;
+
+    // TODO: Move this to a component
     public String text = "Button";
     public Color color = Color.BLACK;
     public Color textColor = Color.WHITE;
     public Color hoverColor = Color.GRAY;
-    public boolean hover = false;
-    public int zIndex = 0;
-    public Consumer<Mouse> callback = e -> {};
-    public String parent = "global";
-
+    
+    /**
+     * 
+     * @return the Z-index of this node
+     */
     public int getZIndex() {
         return this.zIndex;
     }
@@ -26,21 +32,16 @@ public abstract class Node {
         return this.zIndex = zIndex;
     }
 
+    public boolean hasHover() {
+        return this.hasHover;
+    }
+
     public void draw() {}
 
     public void update() {}
 
-    // public void hover(MouseEvent event) {
-    //     boolean inHorizontal = (event.getX() > this.x && event.getX() < this.x + this.width.getValue());
-    //     boolean inVertical = (event.getY() > this.y && event.getY() < this.y + this.height.getValue());
-    //     if (inHorizontal && inVertical) {
-    //         this.hover = true;
-    //     } else {
-    //         this.hover = false;
-    //     }
-    // }
-
     public void onMouseClick(Consumer<Mouse> callback) {
+        this.hasHover = true;
         this.callback = callback;
     }
 
