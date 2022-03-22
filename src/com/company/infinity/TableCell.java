@@ -4,10 +4,10 @@ import java.awt.Color;
 
 import org.jfree.fx.FXGraphics2D;
 public class TableCell extends Node {
+
     public TableCell (String text) {
         this.text = text;
-        
-        Infinity.instance.nodeList.add(this);
+        this.setZIndex(10);
     }
 
     @Override
@@ -17,8 +17,12 @@ public class TableCell extends Node {
         int columnWidth = this.width.getValue();
         int rowHeight = this.height.getValue();
 
-        context.setColor(Color.LIGHT_GRAY);
-        context.fillRect(0, 0, 500, 500);
+        context.setColor(Color.RED);
+        context.fillRect(this.x, this.y, this.width.getValue(), this.height.getValue());
+
+        // Add text in center of the block
+        context.setColor(Color.BLACK);
+        context.drawString(this.text, this.x + columnWidth / 2 - context.getFontMetrics().stringWidth(this.text) / 2, this.y + rowHeight / 2 + context.getFontMetrics().getHeight() / 2);
 
         // context.setColor(Color.BLACK);
         // context.drawRect(this.x, this.y, columnWidth, rowHeight);

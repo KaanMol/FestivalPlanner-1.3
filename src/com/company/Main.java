@@ -12,7 +12,6 @@ import com.company.infinity.Unit;
 import com.company.popup.ArenaPopup;
 import com.company.popup.BattlePopup;
 import com.company.popup.CreateBattlePopup;
-import com.company.popup.TrainerPopup;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -98,6 +97,11 @@ public class Main extends Application {
             table.addRow(i + "");
         }
 
+        table.addCell(2, 1, 1f, 2f, new TableCell("Time"));
+        table.addCell(0, 1, 1f, 2f, new TableCell("Time"));
+        table.addCell(1, 6, 1f, 2f, new TableCell("Time"));
+        table.addCell(1, 2, 1f, 1f, new TableCell("Time"));
+        table.addCell(2, 7, 1f, 3f, new TableCell("Time"));
         // Battle battle = Battle.list.get(0);
         // int xMultiplier = battle.getEndTime().getHour() - battle.getBeginTime().getHour();
         // TableCell cell = new TableCell(battle.getTrainer1().getName() + " vs " + battle.getTrainer2().getName());

@@ -5,6 +5,7 @@ import org.jfree.fx.FXGraphics2D;
 import java.awt.Color;
 
 public class Table extends Node {
+    private NodeList children = new NodeList();
     private Unit rowHeight = Unit.px(0);
     private Unit columnWidth = Unit.px(0);
     private ArrayList<String> columns = new ArrayList<>();
@@ -15,7 +16,7 @@ public class Table extends Node {
         this.y = y;
         this.width = width;
         this.height = height;
-        System.out.println(this.width.getValue());
+        System.out.println(this);
         System.out.println(this.height.getValue());
         Infinity.instance.nodeList.add(this);
     }
@@ -28,21 +29,40 @@ public class Table extends Node {
         this.rows.add(row);
     }
 
-    public void addCell(int xIndex, int yIndex, int xMultiplier, int yMultiplier, TableCell child) {
-        child.x = xIndex + this.columnWidth.getValue();
-        child.y = yIndex + this.rowHeight.getValue();
-        child.width = Unit.px(this.columnWidth.getValue() * xMultiplier);
-        child.height = Unit.px(this.rowHeight.getValue() * yMultiplier);
+    public void addCell(int xIndex, int yIndex, float xMultiplier, float yMultiplier, TableCell child) {
+        this.setWidthAndHeight();
+        System.out.println("x: " + this.x);
+        child.x = this.x + this.columnWidth.getValue() * (xIndex + 1);
+        child.y = this.y + this.rowHeight.getValue() * (yIndex + 1);
+
+        child.width = Unit.px(Math.round(this.columnWidth.getValue() * xMultiplier));
+        child.height = Unit.px(Math.round(this.rowHeight.getValue() * yMultiplier));
         child.zIndex = this.zIndex + 1;
-        System.out.println(Infinity.instance.nodeList.nodes.size());
-        Infinity.instance.nodeList.add(child);
-        System.out.println(Infinity.instance.nodeList.nodes.size());
+        child.parent = this + "";
+
+        this.children.add(child);
+    }
+
+    public void updateChilds() {
+
+    }
+
+    public void addCell(int xIndex, int yIndex, int xMultiplier, int yMultiplier, TableCell child) {
+        this.addCell(xIndex, yIndex, xMultiplier, yMultiplier, child);
+    }
+
+    private void setWidthAndHeight() {
+        this.columnWidth = Unit.px(this.width.getValue() / this.columns.size());
+        this.rowHeight = Unit.px(this.height.getValue() / this.rows.size());
     }
 
     @Override
     public void update() {
-        this.columnWidth = Unit.px(this.width.getValue() / this.columns.size());
-        this.rowHeight = Unit.px(this.height.getValue() / this.rows.size());
+        this.setWidthAndHeight();
+        
+        for (Node child : this.children.nodes) {
+            child.update();
+        }
     }
 
     @Override

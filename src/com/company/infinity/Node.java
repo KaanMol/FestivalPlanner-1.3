@@ -16,6 +16,7 @@ public abstract class Node {
     public boolean hover = false;
     public int zIndex = 0;
     public Consumer<Mouse> callback = e -> {};
+    public String parent = "global";
 
     public int getZIndex() {
         return this.zIndex;
