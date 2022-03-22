@@ -12,6 +12,7 @@ import com.company.infinity.Unit;
 import com.company.popup.ArenaPopup;
 import com.company.popup.BattlePopup;
 import com.company.popup.CreateBattlePopup;
+import com.company.popup.EditBattlePopup;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -60,10 +61,6 @@ public class Main extends Application {
 
         new Battle(LocalTime.parse("10:00"), LocalTime.parse("12:00"), Arena.list.get(0), Trainer.list.get(0), Trainer.list.get(1));
 
-        // Button create = new Button(0, 0, Unit.px(100), Unit.vh(50), "Create");
-        // Button edit = new Button(101, 0, Unit.px(100), Unit.px(50), "Edit");
-        // Button read = new Button(202, 0, Unit.vw(50), Unit.vh(50), "Read");
-
         Sound sound = new Sound("test.mp3");
         sound.player.setVolume(0.02);
 
@@ -87,7 +84,6 @@ public class Main extends Application {
 
         Table table = new Table(0, 51, Unit.vw(100), Unit.vh(100).subtract(Unit.px(50)));
         
-        table.addColumn("");
         for (int arena = 0; arena < Arena.list.size(); arena++) {
             table.addColumn(Arena.list.get(arena).getArenaName());
         }
@@ -97,16 +93,18 @@ public class Main extends Application {
             table.addRow(i + "");
         }
 
-        table.addCell(2, 1, 1f, 2f, new TableCell("Time"));
-        table.addCell(0, 1, 1f, 2f, new TableCell("Time"));
-        table.addCell(1, 6, 1f, 2f, new TableCell("Time"));
-        table.addCell(1, 2, 1f, 1f, new TableCell("Time"));
-        table.addCell(2, 7, 1f, 3f, new TableCell("Time"));
-        // Battle battle = Battle.list.get(0);
-        // int xMultiplier = battle.getEndTime().getHour() - battle.getBeginTime().getHour();
-        // TableCell cell = new TableCell(battle.getTrainer1().getName() + " vs " + battle.getTrainer2().getName());
+        Battle battle = Battle.list.get(0);
+        int xMultiplier = battle.getEndTime().getHour() - battle.getBeginTime().getHour();
+        TableCell cell = new TableCell(battle.getTrainer1().getName() + " vs " + battle.getTrainer2().getName());
+        table.addCell(0, battle.getBeginTime().getHour() - minHour, 1f, xMultiplier, cell);
         
-        // table.addCell(0, battle.getBeginTime().getHour() - minHour, xMultiplier, 0, cell);
+        cell.onMouseClick(e -> {
+            new EditBattlePopup(battle);
+            int xMultiplierNew = battle.getEndTime().getHour() - battle.getBeginTime().getHour();
+            TableCell cellNew = new TableCell(battle.getTrainer1().getName() + " vs " + battle.getTrainer2().getName());
+            table.addCell(0, battle.getBeginTime().getHour() - minHour, 1f, xMultiplierNew, cellNew);
+        });
 
+        table.addCell(0, battle.getBeginTime().getHour() - minHour, 1f, xMultiplier, cell);
     }
 }
