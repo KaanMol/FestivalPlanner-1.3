@@ -16,12 +16,14 @@ public class Table extends Node {
         this.y = y;
         this.width = width;
         this.height = height;
-        System.out.println(this);
-        System.out.println(this.height.getValue());
         Infinity.instance.nodeList.add(this);
     }
 
     public void addColumn(String header) {
+        if (this.columns.size() == 0) {
+            this.columns.add("");
+        }
+        
         this.columns.add(header);
     }
 
@@ -31,20 +33,41 @@ public class Table extends Node {
 
     public void addCell(int xIndex, int yIndex, float xMultiplier, float yMultiplier, TableCell child) {
         this.setWidthAndHeight();
-        System.out.println("x: " + this.x);
-        child.x = this.x + this.columnWidth.getValue() * (xIndex + 1);
-        child.y = this.y + this.rowHeight.getValue() * (yIndex + 1);
+        child.xIndex = xIndex;
+        child.yIndex = yIndex;
+        child.x = this.x + this.columnWidth.getValue() * (child.xIndex + 1);
+        child.y = this.y + this.rowHeight.getValue() * (child.yIndex + 1);
 
-        child.width = Unit.px(Math.round(this.columnWidth.getValue() * xMultiplier));
-        child.height = Unit.px(Math.round(this.rowHeight.getValue() * yMultiplier));
+        child.xMultipler = xMultiplier;
+        child.yMultipler = yMultiplier;
+        child.width = Unit.px(Math.round(this.columnWidth.getValue() * child.xMultipler));
+        child.height = Unit.px(Math.round(this.rowHeight.getValue() * child.yMultipler));
         child.zIndex = this.zIndex + 1;
         child.parent = this + "";
 
-        this.children.add(child);
+        Infinity.instance.nodeList.add(child);
     }
 
-    public void updateChilds() {
+    public void updateChildren() {
+        this.setWidthAndHeight();
+        ArrayList<Node> children = Infinity.instance.nodeList.nodes;
+        for (int i = 0; i < children.size(); i++) {
+            Node node = children.get(i);
 
+            if ((node instanceof TableCell) == false) {
+                continue;
+            }
+
+            TableCell child = (TableCell) node;
+
+            if (child.parent.equals(this + "")) {
+                child.x = this.x + this.columnWidth.getValue() * (child.xIndex + 1);
+                child.y = this.y + this.rowHeight.getValue() * (child.yIndex + 1);
+                child.width = Unit.px(Math.round(this.columnWidth.getValue() * child.xMultipler));
+                child.height = Unit.px(Math.round(this.rowHeight.getValue() * child.yMultipler));
+                child.zIndex = this.zIndex + 1;
+            }
+        }
     }
 
     public void addCell(int xIndex, int yIndex, int xMultiplier, int yMultiplier, TableCell child) {
@@ -59,10 +82,7 @@ public class Table extends Node {
     @Override
     public void update() {
         this.setWidthAndHeight();
-        
-        for (Node child : this.children.nodes) {
-            child.update();
-        }
+        this.updateChildren();
     }
 
     @Override
