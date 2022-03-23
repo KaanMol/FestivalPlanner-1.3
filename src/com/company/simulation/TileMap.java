@@ -45,6 +45,14 @@ public class TileMap {
         return layers.get(layers.size() - 1).getTile(x, y) != null;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     private void addLayer(JsonObject layer) {
         if (layer.getString("type").equals("tilelayer")) {
             MapLayer mapLayer = new MapLayer(layers.size());
