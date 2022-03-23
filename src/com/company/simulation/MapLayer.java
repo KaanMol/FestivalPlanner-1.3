@@ -11,6 +11,7 @@ public class MapLayer {
 
     public void setTile(MapTile tile, int x, int y) {
         tiles[y][x] = tile;
+        tile.setZIndex(zIndex);
     }
 
     public MapTile getTile(int x, int y) {

@@ -1,9 +1,11 @@
 package com.company.simulation;
 
+import com.company.infinity.Node;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 
-public class MapTile {
+public class MapTile extends Node {
     private Point2D position;
     private Image image;
 
@@ -19,4 +21,14 @@ public class MapTile {
     }
 
     // TODO visualise tiles *somehow*
+
+    @Override
+    public void draw() {
+        super.draw();
+    }
+
+    @Override
+    public void update() {
+        super.update();
+    }
 }
