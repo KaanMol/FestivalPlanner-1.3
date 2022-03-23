@@ -16,6 +16,9 @@ public class TileMap {
     private ArrayList<MapLayer> layers = new ArrayList<>();
     private ArrayList<MapArea> areas = new ArrayList<>();
 
+    private int width;
+    private int height;
+
     public TileMap(File file) {
         StringBuilder json = new StringBuilder();
         try {
@@ -29,15 +32,20 @@ public class TileMap {
 
         JsonReader reader = Json.createReader(new StringReader(json.toString()));
 
-        int width = reader.readObject().getInt("width");
-        int height = reader.readObject().getInt("height");
+        width = reader.readObject().getInt("width");
+        height = reader.readObject().getInt("height");
         JsonArray jsonLayers = reader.readObject().getJsonArray("layers");
         for (JsonValue jsonLayer : jsonLayers) {
-            addLayer(jsonLayer.asJsonObject(), width, height);
+            addLayer(jsonLayer.asJsonObject());
         }
     }
 
-    private void addLayer(JsonObject layer, int width, int height) {
+    public boolean isPassable(int x, int y) {
+        //NOTE: boldly assumes last layer is collision-related
+        return layers.get(layers.size() - 1).getTile(x, y) != null;
+    }
+
+    private void addLayer(JsonObject layer) {
         if (layer.getString("type").equals("tilelayer")) {
             MapLayer mapLayer = new MapLayer(layers.size());
             for (int y = 0; y < height; y++) {
@@ -50,7 +58,7 @@ public class TileMap {
             }
             layers.add(mapLayer);
         } else {
-            //TODO handle object layer
+            //TODO: handle object layer
         }
     }
 }
