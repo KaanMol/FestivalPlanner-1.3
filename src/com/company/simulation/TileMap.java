@@ -32,9 +32,11 @@ public class TileMap {
 
         JsonReader reader = Json.createReader(new StringReader(json.toString()));
 
-        width = reader.readObject().getInt("width");
-        height = reader.readObject().getInt("height");
-        JsonArray jsonLayers = reader.readObject().getJsonArray("layers");
+        JsonObject object = reader.readObject();
+
+        width = object.getInt("width");
+        height = object.getInt("height");
+        JsonArray jsonLayers = object.getJsonArray("layers");
         for (JsonValue jsonLayer : jsonLayers) {
             addLayer(jsonLayer.asJsonObject());
         }
@@ -59,11 +61,11 @@ public class TileMap {
 
     private void addLayer(JsonObject layer) {
         if (layer.getString("type").equals("tilelayer")) {
-            MapLayer mapLayer = new MapLayer(layers.size());
+            MapLayer mapLayer = new MapLayer(width, height, layers.size());
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
                     int type = layer.getJsonArray("data").getInt(x + y * width) - 1;
-                    if (type != -1){
+                    if (type != -1) {
                         mapLayer.setTile(new MapTile(new Point2D.Double(x * 16, y * 16), null), x, y);
                     }
                 }

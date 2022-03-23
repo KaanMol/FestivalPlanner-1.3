@@ -4,7 +4,8 @@ public class MapLayer {
     private MapTile[][] tiles;
     private int zIndex;
 
-    public MapLayer(int zIndex) {
+    public MapLayer(int width, int height, int zIndex) {
+        tiles = new MapTile[height][width];
         this.zIndex = zIndex;
     }
 

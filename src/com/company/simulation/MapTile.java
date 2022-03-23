@@ -8,7 +8,9 @@ public class MapTile {
     private Image image;
 
     public MapTile(Point2D position, Image image) {
-        this.image = image;
+        if (image != null) {
+            this.image = image;
+        }
         this.position = position;
     }
 
