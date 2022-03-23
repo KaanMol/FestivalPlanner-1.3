@@ -53,6 +53,10 @@ public class TileMap {
         return height;
     }
 
+    public ArrayList<MapArea> getAreas() {
+        return areas;
+    }
+
     private void addLayer(JsonObject layer) {
         if (layer.getString("type").equals("tilelayer")) {
             MapLayer mapLayer = new MapLayer(layers.size());
