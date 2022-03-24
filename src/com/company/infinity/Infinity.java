@@ -43,17 +43,20 @@ public class Infinity extends Canvas {
         this.context.fillRect(0, 0, (int)this.getWidth(), (int)this.getHeight());
 
         boolean isHovering = false;
+        Node clickedNode = null;
 
         for (Node node : this.nodeList.nodes) {
             node.update();
             
-            if (node.inBounds(this.mouse.getX(), this.mouse.getY())) {
+            if (node.inBounds(this.mouse.getX(), this.mouse.getY()) && node.hasHover() == true) {
                 node.hover = true;
                 isHovering = true;
 
                 if (this.mouse.getClicked()) {
+                    if (clickedNode == null || clickedNode.getZIndex() < node.getZIndex()) {
+                        clickedNode = node;
+                    }
                     this.mouse.setClicked(false);
-                    node.callback.accept(this.mouse);
                 }
             } else {
                 node.hover = false;
@@ -64,6 +67,10 @@ public class Infinity extends Canvas {
             this.getScene().setCursor(javafx.scene.Cursor.HAND);
         } else {
             this.getScene().setCursor(javafx.scene.Cursor.DEFAULT);
+        }
+        
+        if (clickedNode != null) {
+            clickedNode.callback.accept(this.mouse);
         }
     }
 
