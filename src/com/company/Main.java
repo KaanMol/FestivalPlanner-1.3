@@ -13,6 +13,7 @@ import com.company.popup.ArenaPopup;
 import com.company.popup.BattlePopup;
 import com.company.popup.CreateBattlePopup;
 import com.company.popup.TrainerPopup;
+import com.company.simulation.TileMap;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -48,6 +49,8 @@ public class Main extends Application {
         });
         
         infinity.start();
+
+        new TileMap(new File("C:\\Users\\niels\\OneDrive\\Documenten\\TileMap.json"));
 
 /*        Button create = new Button(0, 0, Unit.px(100), Unit.px(50), "Create");
         Button musicPlay = new Button(101, 0, Unit.px(100), Unit.px(50), "Play Music");

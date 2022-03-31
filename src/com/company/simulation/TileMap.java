@@ -69,12 +69,15 @@ public class TileMap {
 
     private void addLayer(JsonObject layer) {
         if (layer.getString("type").equals("tilelayer")) {
-            MapLayer mapLayer = new MapLayer(width, height, layers.size());
+            boolean visible = layer.getBoolean("visible");
+            MapLayer mapLayer = new MapLayer(width, height, layers.size() + 2);
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
                     int type = layer.getJsonArray("data").getInt(x + y * width) - 1;
                     if (type != -1) {
-                        mapLayer.setTile(new MapTile(new Point2D.Double(x * 16, y * 16), null), x, y);
+                        MapTile tile = new MapTile(new Point2D.Double(x * 16, y * 16), sprites.get(type));
+                        tile.setRenderable(visible);
+                        mapLayer.setTile(tile, x, y);
                     }
                 }
             }
@@ -86,7 +89,7 @@ public class TileMap {
 
     private void generateSprites() {
         try {
-            BufferedImage image = ImageIO.read(getClass().getResourceAsStream("/tileset.png"));
+            BufferedImage image = ImageIO.read(getClass().getResourceAsStream("/images/tileset.png"));
             int w = 16;
             int h = 16;
             for (int y = 0; y < image.getHeight() / h; y++) {
