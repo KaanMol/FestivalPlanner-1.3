@@ -7,8 +7,10 @@ import java.util.ArrayList;
 public class Schedule implements Serializable {
 
     private static ArrayList<Battle> battles = Battle.list;
+    private int population;
 
-    public Schedule() {
+    public Schedule(int population) {
+        this.population = population;
     }
 
     public boolean addBattle(LocalTime beginTime, LocalTime endTime, int popularityPercent, Arena arena, Trainer trainer1, Trainer trainer2) {
@@ -23,6 +25,9 @@ public class Schedule implements Serializable {
             }
         }
         if (timeAvailable == false) {
+            return false;
+        }
+        if (!populationIsAvailable(popularityPercent)) {
             return false;
         }
         battles.add(new Battle(beginTime, endTime, popularityPercent, arena, trainer1, trainer2));
@@ -57,6 +62,31 @@ public class Schedule implements Serializable {
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    public int availablePopulationPercent() {
+        int availablePopulation = 100;
+        if (Battle.list.size() > 0) {
+            for (Battle battle:Battle.list) {
+                availablePopulation -= battle.getPopularity();
+            }
+        }
+        return availablePopulation;
+    }
+
+    public boolean populationIsAvailable(int population) {
+        if ((availablePopulationPercent() - population) >= 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public int getPopulation() {
+        return population;
+    }
+
+    public void setPopulation(int population) {
+        this.population = population;
     }
 
     @Override
