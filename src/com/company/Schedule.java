@@ -43,8 +43,8 @@ public class Schedule implements Serializable {
         }
     }
 
-    public void output() {
-        try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("ObjectTest"))) {
+    public void output(File file) {
+        try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(file))) {
             output.writeObject(Battle.list);
             output.writeObject(Trainer.list);
             output.writeObject(Arena.list);
@@ -53,8 +53,8 @@ public class Schedule implements Serializable {
         }
     }
 
-    public void input() {
-        try (ObjectInputStream input = new ObjectInputStream(new FileInputStream("ObjectTest"))) {
+    public void input(File file) {
+        try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(file))) {
 
             Battle.list = (ArrayList<Battle>) input.readObject();
             Trainer.list = (ArrayList<Trainer>) input.readObject();
@@ -62,7 +62,6 @@ public class Schedule implements Serializable {
         } catch (Exception e) {
             System.out.println(e);
         }
-        System.out.println(Battle.list.get(0));
     }
 
     @Override
