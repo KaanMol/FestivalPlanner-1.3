@@ -1,4 +1,4 @@
-package com.company.simulation;
+package com.company.simulation.map;
 
 import java.awt.*;
 import java.awt.geom.Point2D;

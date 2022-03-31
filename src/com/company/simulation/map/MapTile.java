@@ -1,4 +1,4 @@
-package com.company.simulation;
+package com.company.simulation.map;
 
 import com.company.infinity.Infinity;
 import com.company.infinity.Node;

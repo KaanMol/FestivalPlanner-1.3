@@ -1,23 +1,13 @@
 package com.company;
 
 import java.io.File;
-import java.time.LocalTime;
 
-import com.company.infinity.Button;
 import com.company.infinity.Infinity;
-import com.company.infinity.Sound;
-import com.company.infinity.Table;
-import com.company.infinity.TableCell;
-import com.company.infinity.Unit;
-import com.company.popup.ArenaPopup;
-import com.company.popup.BattlePopup;
-import com.company.popup.CreateBattlePopup;
-import com.company.popup.TrainerPopup;
-import com.company.simulation.TileMap;
+import com.company.simulation.Camera;
+import com.company.simulation.map.TileMap;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.TableRow;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -49,6 +39,8 @@ public class Main extends Application {
         });
         
         infinity.start();
+
+        //new Camera(Infinity.instance, , Infinity.instance.context)
 
         new TileMap(new File("C:\\Users\\niels\\OneDrive\\Documenten\\TileMap.json"));
 

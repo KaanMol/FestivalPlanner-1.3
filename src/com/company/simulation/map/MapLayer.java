@@ -1,4 +1,4 @@
-package com.company.simulation;
+package com.company.simulation.map;
 
 public class MapLayer {
     private MapTile[][] tiles;
