@@ -46,6 +46,11 @@ public class Battle implements Serializable {
         return this.popularityPercent;
     }
 
+    public String getPopularityString() {
+        String popularityString = String.valueOf(getPopularity());
+        return popularityString;
+    }
+
     public Arena getArena() {
         return this.arena;
     }
