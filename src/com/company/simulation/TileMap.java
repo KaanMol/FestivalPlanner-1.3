@@ -1,11 +1,16 @@
 package com.company.simulation;
 
+import java.awt.*;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import javax.imageio.ImageIO;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -13,13 +18,16 @@ import javax.json.JsonReader;
 import javax.json.JsonValue;
 
 public class TileMap {
-    private ArrayList<MapLayer> layers = new ArrayList<>();
-    private ArrayList<MapArea> areas = new ArrayList<>();
+    private List<MapLayer> layers = new ArrayList<>();
+    private List<MapArea> areas = new ArrayList<>();
+    private List<Image> sprites = new ArrayList<>();
 
     private int width;
     private int height;
 
     public TileMap(File file) {
+        generateSprites();
+
         StringBuilder json = new StringBuilder();
         try {
             Scanner s = new Scanner(file);
@@ -55,7 +63,7 @@ public class TileMap {
         return height;
     }
 
-    public ArrayList<MapArea> getAreas() {
+    public List<MapArea> getAreas() {
         return areas;
     }
 
@@ -73,6 +81,21 @@ public class TileMap {
             layers.add(mapLayer);
         } else {
             //TODO: handle object layer
+        }
+    }
+
+    private void generateSprites() {
+        try {
+            BufferedImage image = ImageIO.read(getClass().getResourceAsStream("/tileset.png"));
+            int w = 16;
+            int h = 16;
+            for (int y = 0; y < image.getHeight() / h; y++) {
+                for (int x = 0; x < image.getWidth() / w; x++) {
+                    this.sprites.add(image.getSubimage(x * w, y * h, w, h));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

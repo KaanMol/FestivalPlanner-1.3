@@ -43,7 +43,7 @@ public class Main extends Application {
         
         infinity.start();
 
-        Button create = new Button(0, 0, Unit.px(100), Unit.px(50), "Create");
+/*        Button create = new Button(0, 0, Unit.px(100), Unit.px(50), "Create");
         Button musicPlay = new Button(101, 0, Unit.px(100), Unit.px(50), "Play Music");
         Button musicPause = new Button(202, 0, Unit.px(100), Unit.px(50), "Pause Music");
         new Arena("School");
@@ -73,10 +73,22 @@ public class Main extends Application {
 
 
         Table table = new Table(0, 51, Unit.vw(100), Unit.vh(100).subtract(Unit.px(50)));
-        table.columnsFromList(Arena.list.stream().map(Arena::getArenaName).collect(Collectors.toList()));
-        table.rowsFromList(IntStream.range(Config.SCHEDULE_BEGIN_HOUR, Config.SCHEDULE_END_HOUR).boxed().collect(Collectors.toList()));
-        // for (int i = Config.SCHEDULE_BEGIN_HOUR; i < ; i++) {
-        //     table.addRow(i + "");
-        // }
+        
+        table.addColumn("");
+        for (int arena = 0; arena < Arena.list.size(); arena++) {
+            table.addColumn(Arena.list.get(arena).getArenaName());
+        }
+
+        table.addRow("");
+        for (int i = minHour; i < maxHour; i++) {
+            table.addRow(i + "");
+        }*/
+
+        // Battle battle = Battle.list.get(0);
+        // int xMultiplier = battle.getEndTime().getHour() - battle.getBeginTime().getHour();
+        // TableCell cell = new TableCell(battle.getTrainer1().getName() + " vs " + battle.getTrainer2().getName());
+        
+        // table.addCell(0, battle.getBeginTime().getHour() - minHour, xMultiplier, 0, cell);
+
     }
 }
