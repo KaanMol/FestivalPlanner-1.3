@@ -7,16 +7,11 @@ import java.util.ArrayList;
 public class Schedule implements Serializable {
 
     private static ArrayList<Battle> battles = Battle.list;
-    private ArrayList<Integer> randomtest = new ArrayList<>();
 
     public Schedule() {
-        randomtest.add(1);
-        randomtest.add(11);
-        randomtest.add(111);
-        randomtest.add(1111);
     }
 
-    public boolean addBattle(LocalTime beginTime, LocalTime endTime, Arena arena, Trainer trainer1, Trainer trainer2) {
+    public boolean addBattle(LocalTime beginTime, LocalTime endTime, int popularityPercent, Arena arena, Trainer trainer1, Trainer trainer2) {
         boolean timeAvailable = true;
         for (Battle battle : battles) {
             if (battle.getArena() != arena) {
@@ -30,7 +25,7 @@ public class Schedule implements Serializable {
         if (timeAvailable == false) {
             return false;
         }
-        battles.add(new Battle(beginTime, endTime, arena, trainer1, trainer2));
+        battles.add(new Battle(beginTime, endTime, popularityPercent, arena, trainer1, trainer2));
         return true;
     }
 
@@ -62,7 +57,6 @@ public class Schedule implements Serializable {
         } catch (Exception e) {
             System.out.println(e);
         }
-        System.out.println(Battle.list.get(0));
     }
 
     @Override
