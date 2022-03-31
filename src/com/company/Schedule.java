@@ -82,7 +82,7 @@ public class Schedule implements Serializable {
     }
 
     public int getPopulation() {
-        return population;
+        return this.population;
     }
 
     public void setPopulation(int population) {
