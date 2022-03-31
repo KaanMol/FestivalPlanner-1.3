@@ -17,6 +17,7 @@ public class EditBattlePopup extends BattlePopup {
         beginTime.setText(item.getBeginTime().toString());
         endTime.setText(item.getEndTime().toString());
         arena.setValue(item.getArena());
+        popularityPercent.setText((item.getPopularityString()));
         trainer1.setValue(item.getTrainer1());
         trainer2.setValue(item.getTrainer2());
     }
@@ -53,6 +54,7 @@ public class EditBattlePopup extends BattlePopup {
         item.setBeginTime(LocalTime.parse(beginTime.getText()));
         item.setEndTime(LocalTime.parse(endTime.getText()));
         item.setArena(arena.getValue());
+        item.setPopularity(Integer.parseInt(popularityPercent.getText()));
         item.setTrainer1(trainer1.getValue());
         item.setTrainer2(trainer2.getValue());
 
