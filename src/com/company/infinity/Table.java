@@ -1,10 +1,12 @@
 package com.company.infinity;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.jfree.fx.FXGraphics2D;
 import java.awt.Color;
 
 public class Table extends Node {
+    private NodeList children = new NodeList();
     private Unit rowHeight = Unit.px(0);
     private Unit columnWidth = Unit.px(0);
     private ArrayList<String> columns = new ArrayList<>();
@@ -15,34 +17,91 @@ public class Table extends Node {
         this.y = y;
         this.width = width;
         this.height = height;
-        System.out.println(this.width.getValue());
-        System.out.println(this.height.getValue());
         Infinity.instance.nodeList.add(this);
     }
 
+    public void columnsFromList(List columns) {
+        for (Object column : columns) {
+            this.addColumn(column.toString());
+        }
+    }
+
     public void addColumn(String header) {
+        if (this.columns.size() == 0) {
+            this.columns.add("");
+        }
+
         this.columns.add(header);
     }
 
+    
+    public void rowsFromList(List rows) {
+        for (Object row : rows) {
+            this.addRow(row.toString());
+        }
+    }
+
+
     public void addRow(String row) {
+        if (this.rows.size() == 0) {
+            this.rows.add("");
+        }
+
         this.rows.add(row);
     }
 
-    public void addCell(int xIndex, int yIndex, int xMultiplier, int yMultiplier, TableCell child) {
-        child.x = xIndex + this.columnWidth.getValue();
-        child.y = yIndex + this.rowHeight.getValue();
-        child.width = Unit.px(this.columnWidth.getValue() * xMultiplier);
-        child.height = Unit.px(this.rowHeight.getValue() * yMultiplier);
+    public void addCell(int xIndex, int yIndex, float xMultiplier, float yMultiplier, TableCell child) {
+        this.setWidthAndHeight();
+        child.xIndex = xIndex;
+        child.yIndex = yIndex;
+        child.x = this.x + this.columnWidth.getValue() * (child.xIndex + 1);
+        child.y = this.y + this.rowHeight.getValue() * (child.yIndex + 1);
+
+        child.xMultiplier = xMultiplier;
+        child.yMultiplier = yMultiplier;
+        child.width = Unit.px(Math.round(this.columnWidth.getValue() * child.xMultiplier));
+        child.height = Unit.px(Math.round(this.rowHeight.getValue() * child.yMultiplier));
         child.zIndex = this.zIndex + 1;
-        System.out.println(Infinity.instance.nodeList.nodes.size());
+        child.parent = this + "";
+
         Infinity.instance.nodeList.add(child);
-        System.out.println(Infinity.instance.nodeList.nodes.size());
+    }
+
+    public void updateChildren() {
+        this.setWidthAndHeight();
+        ArrayList<Node> children = Infinity.instance.nodeList.nodes;
+        for (int i = 0; i < children.size(); i++) {
+            Node node = children.get(i);
+
+            if ((node instanceof TableCell) == false) {
+                continue;
+            }
+
+            TableCell child = (TableCell) node;
+
+            if (child.parent.equals(this + "")) {
+                child.x = this.x + this.columnWidth.getValue() * (child.xIndex + 1);
+                child.y = this.y + this.rowHeight.getValue() * (child.yIndex + 1);
+                child.width = Unit.px(Math.round(this.columnWidth.getValue() * child.xMultiplier));
+                child.height = Unit.px(Math.round(this.rowHeight.getValue() * child.yMultiplier));
+                child.zIndex = this.zIndex + 1;
+            }
+        }
+    }
+
+    public void addCell(int xIndex, int yIndex, int xMultiplier, int yMultiplier, TableCell child) {
+        this.addCell(xIndex, yIndex, xMultiplier, yMultiplier, child);
+    }
+
+    private void setWidthAndHeight() {
+        this.columnWidth = Unit.px(this.width.getValue() / this.columns.size());
+        this.rowHeight = Unit.px(this.height.getValue() / this.rows.size());
     }
 
     @Override
     public void update() {
-        this.columnWidth = Unit.px(this.width.getValue() / this.columns.size());
-        this.rowHeight = Unit.px(this.height.getValue() / this.rows.size());
+        this.setWidthAndHeight();
+        this.updateChildren();
     }
 
     @Override

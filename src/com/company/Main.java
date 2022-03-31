@@ -1,10 +1,17 @@
 package com.company;
 
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import com.company.infinity.Button;
 import java.io.File;
 
 import com.company.infinity.Infinity;
 import com.company.simulation.Camera;
 import com.company.simulation.map.TileMap;
+import com.company.infinity.Sound;
+import com.company.infinity.Table;
+import com.company.infinity.Unit;
+import com.company.popup.CreateBattlePopup;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -54,12 +61,6 @@ public class Main extends Application {
         new Trainer("Niels", "Dirk");
         new Trainer("Owen", "Kaan");
 
-        new Battle(LocalTime.parse("10:00"), LocalTime.parse("12:00"), Arena.list.get(0), Trainer.list.get(0), Trainer.list.get(1));
-
-        // Button create = new Button(0, 0, Unit.px(100), Unit.vh(50), "Create");
-        // Button edit = new Button(101, 0, Unit.px(100), Unit.px(50), "Edit");
-        // Button read = new Button(202, 0, Unit.vw(50), Unit.vh(50), "Read");
-
         Sound sound = new Sound("test.mp3");
         sound.player.setVolume(0.02);
 
@@ -78,10 +79,13 @@ public class Main extends Application {
             sound.player.pause();
         });
 
-        int minHour = 9;
-        int maxHour = 20;
 
         Table table = new Table(0, 51, Unit.vw(100), Unit.vh(100).subtract(Unit.px(50)));
+        table.columnsFromList(Arena.list.stream().map(Arena::getArenaName).collect(Collectors.toList()));
+        table.rowsFromList(IntStream.range(Config.SCHEDULE_BEGIN_HOUR, Config.SCHEDULE_END_HOUR).boxed().collect(Collectors.toList()));
+        // for (int i = Config.SCHEDULE_BEGIN_HOUR; i < ; i++) {
+        //     table.addRow(i + "");
+        // }
         
         table.addColumn("");
         for (int arena = 0; arena < Arena.list.size(); arena++) {
