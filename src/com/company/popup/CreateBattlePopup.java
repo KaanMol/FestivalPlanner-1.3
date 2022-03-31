@@ -18,9 +18,9 @@ public class CreateBattlePopup extends BattlePopup {
 
     @Override
     public void apply() {
-        Battle battle = new Battle(LocalTime.parse(beginTime.getText()), LocalTime.parse(endTime.getText()),
-                arena.getValue(), trainer1.getValue(), trainer2.getValue());
-                
+        Battle battle = new Battle(LocalTime.parse(beginTime.getText()), LocalTime.parse(endTime.getText()), Integer.parseInt(popularityPercent.getText())
+                ,arena.getValue(), trainer1.getValue(), trainer2.getValue());
+
         ArrayList<Node> nodes = Infinity.instance.nodeList.nodes;
         Table table = null;
         int xMultiplier = battle.getEndTime().getHour() - battle.getBeginTime().getHour();
@@ -29,7 +29,7 @@ public class CreateBattlePopup extends BattlePopup {
             new EditBattlePopup(battle);
             System.out.println(battle.toString());
         });
-        
+
         for (Node node : nodes) {
             if (node instanceof Table) {
                 table = (Table) node;
