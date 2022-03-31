@@ -11,7 +11,7 @@ public class Battle implements Serializable {
 
     private LocalTime beginTime;
     private LocalTime endTime;
-    private int popularity;
+    private int popularityPercent;
     private Arena arena;
     private Trainer trainer1;
     private Trainer trainer2;
@@ -19,10 +19,11 @@ public class Battle implements Serializable {
     /*
     Als tweede krijgen we de constructor(s) voor deze klasse.
      */
-
-    public Battle(LocalTime beginTime, LocalTime endTime, Arena arena, Trainer trainer1, Trainer trainer2) {
+    //TODO Add percentage availability check.
+    public Battle(LocalTime beginTime, LocalTime endTime, int popularityPercent ,Arena arena, Trainer trainer1, Trainer trainer2) {
         this.beginTime = beginTime;
         this.endTime = endTime;
+        this.popularityPercent = popularityPercent;
         this.arena = arena;
         this.trainer1 = trainer1;
         this.trainer2 = trainer2;
@@ -42,7 +43,12 @@ public class Battle implements Serializable {
     }
 
     public int getPopularity() {
-        return this.popularity;
+        return this.popularityPercent;
+    }
+
+    public String getPopularityString() {
+        String popularityString = String.valueOf(getPopularity());
+        return popularityString;
     }
 
     public Arena getArena() {
@@ -65,9 +71,10 @@ public class Battle implements Serializable {
         this.endTime = endTime;
     }
 
-//    public void setPopularity(int popularity) {
-//        this.popularity = popularity;
-//    }
+    //TODO Add Availablity check.
+    public void setPopularity(int popularityPercent) {
+        this.popularityPercent = popularityPercent;
+    }
 
     public void setArena(Arena arena) {
         this.arena = arena;
@@ -92,7 +99,7 @@ public class Battle implements Serializable {
         return "Battle{" +
                 "beginTime=" + beginTime +
                 ", endTime=" + endTime +
-                ", popularity=" + popularity +
+                ", popularity=" + popularityPercent +
                 ", arena=" + arena +
                 ", trainer1=" + trainer1 +
                 ", trainer2=" + trainer2 +
