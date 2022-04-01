@@ -49,7 +49,7 @@ public class Main extends Application {
         
         infinity.start();
 
-        Schedule schedule = new Schedule();
+        Schedule schedule = new Schedule(100);
 
         Button create = new Button(0, 0, Unit.px(100), Unit.px(50), "Create");
         Button musicPlay = new Button(101, 0, Unit.px(100), Unit.px(50), "Play Music");
