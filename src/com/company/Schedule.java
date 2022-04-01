@@ -15,6 +15,7 @@ public class Schedule implements Serializable {
 
     public boolean addBattle(LocalTime beginTime, LocalTime endTime, int popularityPercent, Arena arena, Trainer trainer1, Trainer trainer2) {
         boolean timeAvailable = true;
+        int popularity = popularityPercent;
         for (Battle battle : battles) {
             if (battle.getArena() != arena) {
                 continue;
@@ -28,9 +29,9 @@ public class Schedule implements Serializable {
             return false;
         }
         if (!populationIsAvailable(popularityPercent)) {
-            return false;
+            popularity = availablePopulationPercent();
         }
-        battles.add(new Battle(beginTime, endTime, popularityPercent, arena, trainer1, trainer2));
+        battles.add(new Battle(beginTime, endTime, popularity, arena, trainer1, trainer2));
         return true;
     }
 
@@ -69,6 +70,9 @@ public class Schedule implements Serializable {
         if (Battle.list.size() > 0) {
             for (Battle battle:Battle.list) {
                 availablePopulation -= battle.getPopularity();
+                if (availablePopulation < 0) {
+                    availablePopulation = 0;
+                }
             }
         }
         return availablePopulation;
