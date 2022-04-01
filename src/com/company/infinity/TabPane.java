@@ -39,9 +39,7 @@ public class TabPane extends Node {
     }
 
     public void addNode(String name, Node node) {
-        Node editedNode = node;
-        editedNode.y = 50;
-        this.tabs.get(name).addNode(editedNode);
+        this.tabs.get(name).addNode(node);
     }
 
     public void setActiveTab(String name) {
