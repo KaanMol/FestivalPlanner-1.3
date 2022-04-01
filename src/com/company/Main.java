@@ -116,6 +116,6 @@ public class Main extends Application {
         tabPane.addNode("Schedule", importButton);
         tabPane.addNode("Schedule", table);
 
-        // tabPane.addNode("Simulation", new TileMap());
+        tabPane.addNode("Simulation", new Text("Simulation here", 10, 70));
     }
 }
