@@ -4,7 +4,11 @@ import java.io.File;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import com.company.infinity.Button;
+import java.io.File;
+
 import com.company.infinity.Infinity;
+import com.company.simulation.Camera;
+import com.company.simulation.map.TileMap;
 import com.company.infinity.Sound;
 import com.company.infinity.Table;
 import com.company.infinity.Unit;
@@ -102,5 +106,22 @@ public class Main extends Application {
         // for (int i = Config.SCHEDULE_BEGIN_HOUR; i < ; i++) {
         //     table.addRow(i + "");
         // }
+        
+        table.addColumn("");
+        for (int arena = 0; arena < Arena.list.size(); arena++) {
+            table.addColumn(Arena.list.get(arena).getArenaName());
+        }
+
+        table.addRow("");
+        for (int i = minHour; i < maxHour; i++) {
+            table.addRow(i + "");
+        }*/
+
+        // Battle battle = Battle.list.get(0);
+        // int xMultiplier = battle.getEndTime().getHour() - battle.getBeginTime().getHour();
+        // TableCell cell = new TableCell(battle.getTrainer1().getName() + " vs " + battle.getTrainer2().getName());
+        
+        // table.addCell(0, battle.getBeginTime().getHour() - minHour, xMultiplier, 0, cell);
+
     }
 }
