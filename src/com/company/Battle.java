@@ -20,7 +20,7 @@ public class Battle implements Serializable {
     Als tweede krijgen we de constructor(s) voor deze klasse.
      */
     //TODO Add percentage availability check.
-    public Battle(LocalTime beginTime, LocalTime endTime, int popularityPercent ,Arena arena, Trainer trainer1, Trainer trainer2) {
+    public Battle(LocalTime beginTime, LocalTime endTime, int popularityPercent, Arena arena, Trainer trainer1, Trainer trainer2) {
         this.beginTime = beginTime;
         this.endTime = endTime;
         this.popularityPercent = popularityPercent;
@@ -92,6 +92,28 @@ public class Battle implements Serializable {
 
     public void remove() {
         Battle.list.remove(this);
+    }
+
+    public int availablePopulationPercent() {
+        int availablePopulation = 100;
+        if (Battle.list.size() > 0) {
+            for (Battle battle : Battle.list) {
+                availablePopulation -= battle.getPopularity();
+                if (availablePopulation < 0) {
+                    int givingPopulation = battle.getPopularity() - (availablePopulation * -1);
+                    availablePopulation = 0;
+                    return givingPopulation;
+                }
+            }
+        }
+        return availablePopulation;
+    }
+
+    public boolean populationIsAvailable(int population) {
+        if ((availablePopulationPercent() - population) >= 0) {
+            return true;
+        }
+        return false;
     }
 
     @Override
