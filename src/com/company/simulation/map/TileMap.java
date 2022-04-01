@@ -25,6 +25,10 @@ public class TileMap {
     private int width;
     private int height;
 
+    public TileMap() {
+        this(new File(System.getProperty("user.dir") + "/assets/tilemaps/default.json"));
+    }
+
     public TileMap(File file) {
         generateSprites();
 
@@ -89,7 +93,7 @@ public class TileMap {
 
     private void generateSprites() {
         try {
-            BufferedImage image = ImageIO.read(getClass().getResourceAsStream("/images/tileset.png"));
+            BufferedImage image = ImageIO.read(new File(System.getProperty("user.dir") + "/assets/images/tileset.png"));
             int w = 16;
             int h = 16;
             for (int y = 0; y < image.getHeight() / h; y++) {

@@ -49,7 +49,7 @@ public class Main extends Application {
 
         //new Camera(Infinity.instance, , Infinity.instance.context)
 
-        new TileMap(new File("C:\\Users\\niels\\OneDrive\\Documenten\\TileMap.json"));
+        new TileMap();
 
 /*        Button create = new Button(0, 0, Unit.px(100), Unit.px(50), "Create");
         Button musicPlay = new Button(101, 0, Unit.px(100), Unit.px(50), "Play Music");
