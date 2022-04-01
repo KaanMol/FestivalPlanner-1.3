@@ -8,8 +8,6 @@ public class Button extends Node {
         this.width = width;
         this.height = height;
         this.text = text;
-
-        Infinity.instance.nodeList.add(this);
     }
 
     @Override
