@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
 
-import static com.company.simulation.Direction.*;
+import static com.company.simulation.navigation.Direction.*;
 
 public class VisitorNPC extends NPC {
     public VisitorNPC() {

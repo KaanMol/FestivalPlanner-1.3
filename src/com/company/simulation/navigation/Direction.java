@@ -1,4 +1,4 @@
-package com.company.simulation;
+package com.company.simulation.navigation;
 
 import java.awt.geom.Point2D;
 

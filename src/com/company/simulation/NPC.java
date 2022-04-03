@@ -2,6 +2,7 @@ package com.company.simulation;
 
 import com.company.infinity.Infinity;
 import com.company.infinity.Node;
+import com.company.simulation.navigation.Direction;
 import org.jfree.fx.FXGraphics2D;
 
 import java.awt.geom.AffineTransform;
