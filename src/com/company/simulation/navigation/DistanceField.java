@@ -4,7 +4,6 @@ import com.company.simulation.map.MapArea;
 import com.company.simulation.map.TileMap;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -34,12 +33,26 @@ public class DistanceField {
             for (int x = minX; x < maxX; x++) {
                 if (map.isPassable(x, y)) {
                     queue.add(new Point(x, y));
+                    distances[y][x] = 0;
                 }
             }
         }
 
-        for (Point point : queue) {
-            System.out.println(point);
+        while (!queue.isEmpty()) {
+            Point p = queue.poll();
+
+            for (Direction direction : Direction.values()) {
+                int x = (int) p.getX() + direction.getX();
+                int y = (int) p.getY() + direction.getY();
+                if (x < 0 || x >= map.getWidth()
+                        || y < 0 || y >= map.getHeight()
+                        || !map.isPassable(x, y) || distances[y][x] != Integer.MAX_VALUE) {
+                    continue;
+                }
+
+                queue.add(new Point(x, y));
+                distances[y][x] = distances[(int) p.getY()][(int) p.getX()] + 1;
+            }
         }
     }
 }
