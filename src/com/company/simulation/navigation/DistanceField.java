@@ -9,8 +9,13 @@ import java.util.Queue;
 
 public class DistanceField {
     private int[][] distances;
+    private TileMap map;
+    private MapArea area;
 
     public DistanceField(MapArea area, TileMap map) {
+        this.map = map;
+        this.area = area;
+
         distances = new int[map.getHeight()][map.getWidth()];
         for (int i = 0; i < map.getHeight(); i++) {
             for (int j = 0; j < map.getWidth(); j++) {
@@ -18,10 +23,10 @@ public class DistanceField {
             }
         }
 
-        generateField(area, map);
+        generateField();
     }
 
-    private void generateField(MapArea area, TileMap map) {
+    private void generateField() {
         Queue<Point> queue = new LinkedList<>();
 
         int minX = (int) area.getBounds().getMinX() / 16;
@@ -54,5 +59,29 @@ public class DistanceField {
                 distances[y][x] = distances[(int) p.getY()][(int) p.getX()] + 1;
             }
         }
+    }
+
+    public Direction getOptimalDirection(int x, int y) {
+        int convertedX = x / 16;
+        int convertedY = y / 16;
+
+        int minValue = Integer.MAX_VALUE;
+        Direction optimalDir = Direction.STATIC;
+
+        for (Direction direction : Direction.values()) {
+            int newX = convertedX + direction.getX();
+            int newY = convertedY + direction.getY();
+            if (newX < 0 || newX >= map.getWidth()
+                    || newY < 0 || newY >= map.getHeight()) {
+                continue;
+            }
+
+            if (distances[newY][newX] < minValue) {
+                optimalDir = direction;
+                minValue = distances[newY][newX];
+            }
+        }
+
+        return optimalDir;
     }
 }

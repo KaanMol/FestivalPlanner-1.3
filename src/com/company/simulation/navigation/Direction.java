@@ -3,10 +3,11 @@ package com.company.simulation.navigation;
 import java.awt.geom.Point2D;
 
 public enum Direction {
-    NORTH(0, -1),
+    STATIC(0, 0),
+    WEST(-1, 0),
     EAST(1, 0),
-    SOUTH(0, 1),
-    WEST(-1, 0);
+    NORTH(0, -1),
+    SOUTH(0, 1);
 
     private final Point2D direction;
     private int x;

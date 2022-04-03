@@ -16,4 +16,7 @@ public class Navigation {
         }
     }
 
+    public DistanceField getField(MapArea area) {
+        return distanceFields.get(area);
+    }
 }
