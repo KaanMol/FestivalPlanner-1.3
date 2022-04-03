@@ -1,48 +1,74 @@
 package com.company.simulation;
 
+import com.company.infinity.Infinity;
 import com.company.infinity.Node;
+import org.jfree.fx.FXGraphics2D;
 
-import javax.imageio.ImageIO;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class NPC extends Node {
+public abstract class NPC extends Node {
+    private FXGraphics2D context;
+    private boolean isSpawned;
     private Point2D position;
-    private List<BufferedImage> sprites;
     private double speed;
-    private Direction direction;
+    private int frame;
+    protected List<BufferedImage> sprites;
+    protected Map<Direction, List<BufferedImage>> animation;
+    protected Direction direction;
 
-    public NPC() {
+    public NPC(Direction direction) {
+        this.isSpawned = false;
+        this.speed = 2;
+        this.frame = 0;
         this.setZIndex(4);
-        setImages();
-        this.speed = 10;
-
+        this.context = Infinity.instance.context;
+        Infinity.instance.nodeList.add(this);
+        this.direction = direction;
+        loadImages();
     }
 
     public void update() {
-
+        if (isSpawned) {
+            setPosition(new Point2D.Double(
+                    this.position.getX() + this.speed * direction.getX(),
+                    this.position.getY() + this.speed * direction.getY()));
+        }
     }
 
     public void draw() {
-
-    }
-
-    public void setImages() {
-        sprites = new ArrayList<>();
-        try {
-            BufferedImage image = ImageIO.read(getClass().getResourceAsStream("/assets/images/npcsprite.png"));
-            int width = image.getWidth() / 3;
-            int height = image.getHeight() / 4;
-            for (int y = 0; y < 4; y++) {
-                for (int x = 0; x < 3; x++) {
-                    this.sprites.add(image.getSubimage(x * width, y * height, width, height));
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (isSpawned) {
+            AffineTransform tx = new AffineTransform();
+            tx.translate(position.getX(), position.getY());
+            if (this.frame > this.animation.get(direction).size() - 1)
+                this.frame = 0;
+            context.drawImage(this.animation.get(direction).get(frame), tx, null);
+            this.frame++;
         }
     }
+
+    public abstract void loadImages();
+
+    public abstract void setAnimationImages();
+
+    public void spawn(Point2D spawnPosition) {
+        if (!isSpawned) {
+            this.position = spawnPosition;
+            isSpawned = true;
+        }
+    }
+
+    public void setPosition(Point2D newPosition) {
+        this.position = newPosition;
+    }
+
+    public void setDirection(Direction newDirection) {
+        this.direction = newDirection;
+    }
+
+//    public Direction getDirection() {
+//        return this.direction;
+//    }
 }
