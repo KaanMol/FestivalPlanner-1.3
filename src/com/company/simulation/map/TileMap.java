@@ -103,7 +103,9 @@ public class TileMap {
                         objects.asJsonObject().getInt("width"),
                         objects.asJsonObject().getInt("height")
                 );
-                areas.add(new MapArea(area));
+                String name = objects.asJsonObject().getString("name");
+                String type = objects.asJsonObject().getString("type");
+                areas.add(new MapArea(area, name, type));
             }
         }
     }
