@@ -1,5 +1,7 @@
 package com.company.simulation.map;
 
+import com.company.simulation.navigation.Navigation;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
@@ -21,6 +23,7 @@ public class TileMap {
     private List<MapLayer> layers = new ArrayList<>();
     private List<MapArea> areas = new ArrayList<>();
     private List<Image> sprites = new ArrayList<>();
+    private Navigation navigation;
 
     private int width;
     private int height;
@@ -52,6 +55,8 @@ public class TileMap {
         for (JsonValue jsonLayer : jsonLayers) {
             addLayer(jsonLayer.asJsonObject());
         }
+
+        navigation = new Navigation(this);
     }
 
     public boolean isPassable(int x, int y) {
@@ -71,6 +76,10 @@ public class TileMap {
         return areas;
     }
 
+    public Navigation getNavigation() {
+        return navigation;
+    }
+
     private void addLayer(JsonObject layer) {
         if (layer.getString("type").equals("tilelayer")) {
             boolean visible = layer.getBoolean("visible");
@@ -87,7 +96,15 @@ public class TileMap {
             }
             layers.add(mapLayer);
         } else {
-            //TODO: handle object layer
+            for (JsonValue objects : layer.getJsonArray("objects")) {
+                Rectangle area = new Rectangle(
+                        objects.asJsonObject().getInt("x"),
+                        objects.asJsonObject().getInt("y"),
+                        objects.asJsonObject().getInt("width"),
+                        objects.asJsonObject().getInt("height")
+                );
+                areas.add(new MapArea(area));
+            }
         }
     }
 
