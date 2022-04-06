@@ -28,7 +28,7 @@ public class CreateBattlePopup extends BattlePopup {
         }
         battle.setPopularity(givenPopularity);
 
-        ArrayList<Node> nodes = Infinity.instance.nodeList.nodes;
+        ArrayList<Node> nodes = Infinity.instance.nodeList.getNodes();
         Table table = null;
         int xMultiplier = battle.getEndTime().getHour() - battle.getBeginTime().getHour();
         TableCell cell = new TableCell(battle.getTrainer1().getName() + " vs " + battle.getTrainer2().getName());

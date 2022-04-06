@@ -29,7 +29,7 @@ public class EditBattlePopup extends BattlePopup {
     @Override
     public void apply() {
         // Find battle in table
-        ArrayList<Node> nodes = Infinity.instance.nodeList.nodes;
+        ArrayList<Node> nodes = Infinity.instance.nodeList.getNodes();
         String currentCellText = item.getTrainer1().getName() + " vs " + item.getTrainer2().getName();
         
         TableCell cell = null;
@@ -93,7 +93,7 @@ public class EditBattlePopup extends BattlePopup {
     @Override
     public void delete() {
         System.out.println(1);
-        ArrayList<Node> nodes = Infinity.instance.nodeList.nodes;
+        ArrayList<Node> nodes = Infinity.instance.nodeList.getNodes();
         String currentCellText = item.getTrainer1().getName() + " vs " + item.getTrainer2().getName();
         
         TableCell cell = null;
@@ -117,5 +117,4 @@ public class EditBattlePopup extends BattlePopup {
         }
         nodes.remove(cell);
     }
-    
 }
