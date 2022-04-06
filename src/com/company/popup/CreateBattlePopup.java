@@ -34,7 +34,6 @@ public class CreateBattlePopup extends BattlePopup {
         TableCell cell = new TableCell(battle.getTrainer1().getName() + " vs " + battle.getTrainer2().getName());
         cell.onMouseClick(e -> {
             new EditBattlePopup(battle);
-            System.out.println(battle.toString());
         });
 
         for (Node node : nodes) {
