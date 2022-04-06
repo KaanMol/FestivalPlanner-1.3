@@ -147,7 +147,7 @@
                  "id":14,
                  "name":"SpawnEast",
                  "rotation":0,
-                 "type":"",
+                 "type":"spawn",
                  "visible":true,
                  "width":16,
                  "x":1264,
