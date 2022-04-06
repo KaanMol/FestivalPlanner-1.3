@@ -1,7 +1,17 @@
 package com.company.infinity;
 import java.awt.FontMetrics;
 
+/**
+ * Base Button instance.
+ */
 public class Button extends Node {
+    /**
+     * @param x X coordinate of the left top corner of the button.
+     * @param y Y coordinate of the left top corner of the button.
+     * @param width width of the button with the Unit class.
+     * @param height height of the button with the Unit class.
+     * @param text text inside the button
+     */
     public Button(int x, int y, Unit width, Unit height, String text) {
         this.x = x;
         this.y = y;
@@ -10,6 +20,9 @@ public class Button extends Node {
         this.text = text;
     }
 
+    /**
+     * Draws the button on the screen every cycle.
+     */
     @Override
     public void draw() {
         FontMetrics font = Infinity.instance.context.getFontMetrics();

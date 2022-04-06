@@ -11,7 +11,6 @@ import javafx.scene.canvas.Canvas;
  */
 public class Infinity extends Canvas {
     public static Infinity instance;
-
     public NodeList nodeList = new NodeList();
     public Mouse mouse = new Mouse();
     public FXGraphics2D context;
@@ -30,6 +29,11 @@ public class Infinity extends Canvas {
         }
     };
 
+    /**
+     * Initializes the Infinity game engine.
+     * @param width
+     * @param height
+     */
     public Infinity(int width, int height) {
         this.setWidth(width);
         this.setHeight(height);
@@ -46,17 +50,24 @@ public class Infinity extends Canvas {
         this.nodeList.add(this.fps);
     }
 
+    /**
+     * Adds a node to the Infinity game engine.
+     */
     public void addNode(Node node) {
         this.nodeList.add(node);
     }
     
+    /**
+     * Update method that calls every other update method.
+     */
     public void update() {
+        // Cleans the canvas every update
         this.context.setColor(Color.WHITE);
         this.context.fillRect(0, 0, (int)this.getWidth(), (int)this.getHeight());
 
         boolean isHovering = false;
         Node clickedNode = null;
-
+        
         for (Node node : this.nodeList.getNodes()) {
             node.update();
             
@@ -86,16 +97,25 @@ public class Infinity extends Canvas {
         }
     }
 
+    /**
+     * Render method that calls every other render method.
+     */
     public void render() {
         for (Node node : this.nodeList.getNodes()) {
             node.draw();
         }
     }
 
+    /**
+     * Stops the infinity game engine.
+     */
     public void stop() {
         this.gameLoop.stop();
     }
 
+    /**
+     * Starts the infinity game engine.
+     */
     public void start() {
         this.fps.start();
         this.gameLoop.start();
