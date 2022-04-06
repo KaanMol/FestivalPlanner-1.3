@@ -9,6 +9,7 @@ import com.company.infinity.FPS;
 import java.io.File;
 
 import com.company.infinity.Infinity;
+import com.company.popup.CreatePopulationPopup;
 import com.company.simulation.Camera;
 import com.company.simulation.NPC;
 import com.company.simulation.SimulationView;
@@ -39,13 +40,14 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("InfinityWindow");
-        
+        Schedule schedule = new Schedule(100);
+
         Infinity infinity = new Infinity(800, 600);
         Scene scene = new Scene(new Group(Infinity.instance));
 
         primaryStage.setScene(scene);
         primaryStage.show();
-        
+
         double windowDelteWidth = primaryStage.getWidth() - scene.getWidth();
         double windowDeltaHeight = primaryStage.getHeight() - scene.getHeight();
 
@@ -56,7 +58,7 @@ public class Main extends Application {
         primaryStage.heightProperty().addListener((observable, oldValue, newValue) -> {
             infinity.setHeight(newValue.doubleValue() - windowDeltaHeight);
         });
-        
+
         infinity.start();
 
         TileMap map = new TileMap();
@@ -65,28 +67,31 @@ public class Main extends Application {
         view.height = Unit.vh(100).subtract(Unit.px(50));
         view.y = 50;
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < schedule.getPopulation(); i++) {
             NPC npc = new VisitorNPC(map);
             npc.setTarget(map.getAreas().get((int)(3 * Math.random())));
             npc.spawn();
             view.getNpcs().add(npc);
         }
-        
-        Schedule schedule = new Schedule(100);
-        
+
+
         TabPane tabPane = new TabPane(0, 0, Unit.vw(100), Unit.vh(100));
         
         tabPane.addTab("Schedule");
-        tabPane.addTab("Arena/Trainer");
         tabPane.addTab("Simulation");
         tabPane.setActiveTab("Schedule");
 
-        new Arena("School");
-        new Arena("BattleArena 1");
-        new Arena("BattleArena 2");
+        new Arena("Main Arena");
+        new Arena("Side Arena");
+        new Arena("Practice Arena");
 
-        new Trainer("Niels", "Dirk");
-        new Trainer("Owen", "Kaan");
+        new Trainer("Kanye", "Muk");
+        new Trainer("Dirk", "Mr. Mime");
+        new Trainer("Owen", "Lombre");
+        new Trainer("Koen", "Slakoth");
+        new Trainer("Wouter", "Snorlax");
+        new Trainer("Niels", "Wooper");
+        new Trainer("Kaan", "Charizard");
 
         Table table = new Table(0, 51, Unit.vw(100), Unit.vh(100).subtract(Unit.px(50)));
         table.columnsFromList(Arena.list.stream().map(Arena::getArenaName).collect(Collectors.toList()));
@@ -95,10 +100,17 @@ public class Main extends Application {
         Button create = new Button(404, 0, Unit.px(100), Unit.px(50), "Create");
         Button exportButton = new Button(505, 0, Unit.px(100), Unit.px(50), "Export data");
         Button importButton = new Button(606, 0, Unit.px(100), Unit.px(50), "Import data");
+        Button setPopulation = new Button(707, 0, Unit.px(100), Unit.px(50), "Set Population");
+        Text currentPopulation = new Text("Default population: " + schedule.getPopulationString(), 820, 30);
 
         create.onMouseClick(e -> {
             new CreateBattlePopup();
         });
+
+        setPopulation.onMouseClick(e -> {
+            System.out.println("Set Population Triggered!");
+            new CreatePopulationPopup(schedule);
+        } );
 
         exportButton.onMouseClick(e -> {
             FileChooser fileChooser = new FileChooser();
@@ -132,8 +144,10 @@ public class Main extends Application {
         tabPane.addNode("Schedule", exportButton);
         tabPane.addNode("Schedule", importButton);
         tabPane.addNode("Schedule", table);
-        tabPane.addNode("Arena/Trainer", new Text("hi", 100, 100));
+        tabPane.addNode("Schedule", setPopulation);
+        tabPane.addNode("Schedule", currentPopulation);
 
         tabPane.addNode("Simulation", view);
+        tabPane.addNode("Simulation", currentPopulation);
     }
 }
