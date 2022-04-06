@@ -77,6 +77,7 @@ public class Main extends Application {
         TabPane tabPane = new TabPane(0, 0, Unit.vw(100), Unit.vh(100));
         
         tabPane.addTab("Schedule");
+        tabPane.addTab("Arena/Trainer");
         tabPane.addTab("Simulation");
         tabPane.setActiveTab("Schedule");
 
@@ -91,15 +92,11 @@ public class Main extends Application {
         table.columnsFromList(Arena.list.stream().map(Arena::getArenaName).collect(Collectors.toList()));
         table.rowsFromList(IntStream.range(Config.SCHEDULE_BEGIN_HOUR, Config.SCHEDULE_END_HOUR).boxed().collect(Collectors.toList()));
 
-        Button create = new Button(303, 0, Unit.px(100), Unit.px(50), "Create");
-        Button exportButton = new Button(404, 0, Unit.px(100), Unit.px(50), "Export data");
-        Button importButton = new Button(505, 0, Unit.px(100), Unit.px(50), "Import data");
-
-        // Sound sound = new Sound("test.mp3");
-        // sound.player.setVolume(0.02);
+        Button create = new Button(404, 0, Unit.px(100), Unit.px(50), "Create");
+        Button exportButton = new Button(505, 0, Unit.px(100), Unit.px(50), "Export data");
+        Button importButton = new Button(606, 0, Unit.px(100), Unit.px(50), "Import data");
 
         create.onMouseClick(e -> {
-            System.out.println("Create triggered!");
             new CreateBattlePopup();
         });
 
@@ -125,7 +122,6 @@ public class Main extends Application {
                 TableCell cell = new TableCell(battle.getTrainer1().getName() + " vs " + battle.getTrainer2().getName());
                 cell.onMouseClick(cellEvent -> {
                     new EditBattlePopup(battle);
-                    System.out.println(battle.toString());
                 });
 
                 table.addCell(Arena.list.indexOf(battle.getArena()), battle.getBeginTime().getHour() - Config.SCHEDULE_BEGIN_HOUR, 1f, xMultiplier, cell);
@@ -136,6 +132,7 @@ public class Main extends Application {
         tabPane.addNode("Schedule", exportButton);
         tabPane.addNode("Schedule", importButton);
         tabPane.addNode("Schedule", table);
+        tabPane.addNode("Arena/Trainer", new Text("hi", 100, 100));
 
         tabPane.addNode("Simulation", view);
     }
