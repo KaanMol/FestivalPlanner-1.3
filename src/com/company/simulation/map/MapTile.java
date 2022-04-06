@@ -46,9 +46,4 @@ public class MapTile extends Node {
         context.drawImage(image, transf, null);
         //context.fillRect(this.x, this.y, this.width.getValue(), this.height.getValue());
     }
-
-    @Override
-    public void update() {
-        // TODO when camera is implemented
-    }
 }

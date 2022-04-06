@@ -1,5 +1,6 @@
 package com.company;
 
+import java.io.File;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import com.company.infinity.Button;
@@ -15,6 +16,7 @@ import com.company.popup.CreateBattlePopup;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -52,6 +54,9 @@ public class Main extends Application {
 /*        Button create = new Button(0, 0, Unit.px(100), Unit.px(50), "Create");
         Button musicPlay = new Button(101, 0, Unit.px(100), Unit.px(50), "Play Music");
         Button musicPause = new Button(202, 0, Unit.px(100), Unit.px(50), "Pause Music");
+        Button exportButton = new Button(303, 0, Unit.px(100), Unit.px(50), "Export data");
+        Button importButton = new Button(404, 0, Unit.px(100), Unit.px(50), "Import data");
+
         new Arena("School");
         new Arena("BattleArena 1");
         new Arena("BattleArena 2");
@@ -77,10 +82,27 @@ public class Main extends Application {
             sound.player.pause();
         });
 
+        exportButton.onMouseClick(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("schedule","*.schedule"));
+            fileChooser.setInitialFileName("Tournament");
+            File chosenFile = fileChooser.showSaveDialog(primaryStage);
+            schedule.output(chosenFile);
+        });
+
+        importButton.onMouseClick(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("schedule","*.schedule"));
+            File chosenFile = fileChooser.showOpenDialog(primaryStage);
+            schedule.input(chosenFile);
+        });
+
 
         Table table = new Table(0, 51, Unit.vw(100), Unit.vh(100).subtract(Unit.px(50)));
         table.columnsFromList(Arena.list.stream().map(Arena::getArenaName).collect(Collectors.toList()));
         table.rowsFromList(IntStream.range(Config.SCHEDULE_BEGIN_HOUR, Config.SCHEDULE_END_HOUR).boxed().collect(Collectors.toList()));
+
+
         // for (int i = Config.SCHEDULE_BEGIN_HOUR; i < ; i++) {
         //     table.addRow(i + "");
         // }
