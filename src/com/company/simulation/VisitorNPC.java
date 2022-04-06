@@ -4,6 +4,7 @@ import com.company.simulation.map.TileMap;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +22,7 @@ public class VisitorNPC extends NPC {
     public void loadImages() {
         sprites = new ArrayList<>();
         try {
-            BufferedImage image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/images/visitorsprite.png")));
+            BufferedImage image = ImageIO.read(new File(System.getProperty("user.dir") + ("/assets/images/visitorsprite.png")));
             int width = image.getWidth() / 3;
             int height = image.getHeight() / 4;
             for (int y = 0; y < 4; y++) {

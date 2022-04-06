@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import com.company.infinity.Button;
+import com.company.infinity.FPS;
+
 import java.io.File;
 
 import com.company.infinity.Infinity;
@@ -59,9 +61,9 @@ public class Main extends Application {
 
         TileMap map = new TileMap();
         SimulationView view = new SimulationView(map);
-        infinity.nodeList.add(view);
         view.width = Unit.vw(100);
-        view.height = Unit.vh(100);
+        view.height = Unit.vh(100).subtract(Unit.px(50));
+        view.y = 50;
 
         for (int i = 0; i < 5; i++) {
             NPC npc = new VisitorNPC(map);
@@ -78,13 +80,6 @@ public class Main extends Application {
         tabPane.addTab("Simulation");
         tabPane.setActiveTab("Schedule");
 
-        Button create = new Button(250, 0, Unit.px(100), Unit.px(50), "Create battle");
-        // Button musicPlay = new Button(404, 0, Unit.px(100), Unit.px(50), "Play Music");
-        // Button musicPause = new Button(505, 0, Unit.px(100), Unit.px(50), "Pause Music");
-        Button exportButton = new Button(351, 0, Unit.px(100), Unit.px(50), "Export data");
-        Button importButton = new Button(452, 0, Unit.px(100), Unit.px(50), "Import data");
-
-
         new Arena("School");
         new Arena("BattleArena 1");
         new Arena("BattleArena 2");
@@ -96,14 +91,9 @@ public class Main extends Application {
         table.columnsFromList(Arena.list.stream().map(Arena::getArenaName).collect(Collectors.toList()));
         table.rowsFromList(IntStream.range(Config.SCHEDULE_BEGIN_HOUR, Config.SCHEDULE_END_HOUR).boxed().collect(Collectors.toList()));
 
-
-        Button create = new Button(0, 0, Unit.px(100), Unit.px(50), "Create");
-        Button musicPlay = new Button(101, 0, Unit.px(100), Unit.px(50), "Play Music");
-        Button musicPause = new Button(202, 0, Unit.px(100), Unit.px(50), "Pause Music");
-        Button exportButton = new Button(303, 0, Unit.px(100), Unit.px(50), "Export data");
-        Button importButton = new Button(404, 0, Unit.px(100), Unit.px(50), "Import data");
-
-       
+        Button create = new Button(303, 0, Unit.px(100), Unit.px(50), "Create");
+        Button exportButton = new Button(404, 0, Unit.px(100), Unit.px(50), "Export data");
+        Button importButton = new Button(505, 0, Unit.px(100), Unit.px(50), "Import data");
 
         // Sound sound = new Sound("test.mp3");
         // sound.player.setVolume(0.02);
@@ -112,16 +102,6 @@ public class Main extends Application {
             System.out.println("Create triggered!");
             new CreateBattlePopup();
         });
-
-        // musicPlay.onMouseClick(e -> {
-        //     System.out.println("Starting music");
-        //     sound.player.play();
-        // });
-
-        // musicPause.onMouseClick(e -> {
-        //     System.out.println("Music paused!");
-        //     sound.player.pause();
-        // });
 
         exportButton.onMouseClick(e -> {
             FileChooser fileChooser = new FileChooser();
@@ -152,17 +132,11 @@ public class Main extends Application {
             }
         });
 
-        Table table = new Table(0, 51, Unit.vw(100), Unit.vh(100).subtract(Unit.px(50)));
-        table.columnsFromList(Arena.list.stream().map(Arena::getArenaName).collect(Collectors.toList()));
-        table.rowsFromList(IntStream.range(Config.SCHEDULE_BEGIN_HOUR, Config.SCHEDULE_END_HOUR).boxed().collect(Collectors.toList()));
-
         tabPane.addNode("Schedule", create);
-        // tabPane.addNode("Schedule", musicPlay);
-        // tabPane.addNode("Schedule", musicPause);
         tabPane.addNode("Schedule", exportButton);
         tabPane.addNode("Schedule", importButton);
         tabPane.addNode("Schedule", table);
 
-        tabPane.addNode("Simulation", new Text("Simulation here", 10, 70));
+        tabPane.addNode("Simulation", view);
     }
 }

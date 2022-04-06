@@ -57,6 +57,9 @@ public abstract class Node {
      */
     public void update() {}
 
+    /**
+     * 
+     */
     public void onMouseClick(Consumer<Mouse> callback) {
         this.hasHover = true;
         this.callback = callback;
