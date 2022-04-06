@@ -1,5 +1,7 @@
 package com.company.simulation;
 
+import com.company.simulation.map.TileMap;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -11,8 +13,8 @@ import java.util.Objects;
 import static com.company.simulation.navigation.Direction.*;
 
 public class VisitorNPC extends NPC {
-    public VisitorNPC() {
-        super(EAST);
+    public VisitorNPC(TileMap tileMap) {
+        super(tileMap);
     }
 
     @Override
@@ -28,6 +30,8 @@ public class VisitorNPC extends NPC {
                 }
             }
             setAnimationImages();
+            centerX = sprites.get(0).getWidth() / 2;
+            centerY = sprites.get(0).getHeight() / 2;
         } catch (IOException e) {
             e.printStackTrace();
         }
