@@ -89,6 +89,11 @@ public class Schedule implements Serializable {
         return this.population;
     }
 
+    public String getPopulationString() {
+        String popularityString = String.valueOf(getPopulation());
+        return popularityString;
+    }
+
     public void setPopulation(int population) {
         this.population = population;
     }
