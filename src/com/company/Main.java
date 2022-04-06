@@ -8,6 +8,9 @@ import java.io.File;
 
 import com.company.infinity.Infinity;
 import com.company.simulation.Camera;
+import com.company.simulation.NPC;
+import com.company.simulation.SimulationView;
+import com.company.simulation.VisitorNPC;
 import com.company.simulation.map.TileMap;
 import com.company.infinity.Sound;
 import com.company.infinity.Table;
@@ -48,6 +51,19 @@ public class Main extends Application {
         });
         
         infinity.start();
+
+        TileMap map = new TileMap();
+        SimulationView view = new SimulationView(map);
+        for (int i = 0; i < 5; i++) {
+            NPC npc = new VisitorNPC(map);
+            npc.setTarget(map.getAreas().get((int)(3 * Math.random())));
+            npc.spawn();
+            view.getNpcs().add(npc);
+        }
+
+        infinity.nodeList.add(view);
+        view.width = Unit.vw(100);
+        view.height = Unit.vh(100);
 
         //new Camera(Infinity.instance, , Infinity.instance.context)
 
