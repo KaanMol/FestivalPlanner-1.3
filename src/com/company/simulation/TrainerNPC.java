@@ -30,6 +30,8 @@ public class TrainerNPC extends NPC {
                 }
             }
             setAnimationImages();
+            centerX = sprites.get(0).getWidth() / 2;
+            centerY = sprites.get(0).getHeight();
         } catch (IOException e) {
             e.printStackTrace();
         }

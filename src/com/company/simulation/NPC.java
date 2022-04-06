@@ -74,9 +74,17 @@ public abstract class NPC extends Node {
 
     public abstract void setAnimationImages();
 
-    public void spawn(Point2D spawnPosition) {
+    public void spawn() {
         if (!isSpawned) {
-            this.position = spawnPosition;
+            List<MapArea> spawns = new ArrayList<>();
+            for (MapArea area : tileMap.getAreas()) {
+                if (area.getType().equals("spawn")) {
+                    spawns.add(area);
+                }
+            }
+            MapArea spawn = spawns.get((int) (spawns.size() * Math.random()));
+            this.position = new Point2D.Double(spawn.getBounds().getX() + spawn.getBounds().getWidth() * Math.random(),
+                    spawn.getBounds().getY() + spawn.getBounds().getHeight() * Math.random());
             isSpawned = true;
         }
     }
