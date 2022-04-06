@@ -1,5 +1,7 @@
 package com.company.simulation;
 
+import com.company.simulation.map.TileMap;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -11,8 +13,8 @@ import java.util.Objects;
 import static com.company.simulation.navigation.Direction.*;
 
 public class TrainerNPC extends NPC {
-    public TrainerNPC() {
-        super(EAST);
+    public TrainerNPC(TileMap tileMap) {
+        super(tileMap);
     }
 
     @Override
