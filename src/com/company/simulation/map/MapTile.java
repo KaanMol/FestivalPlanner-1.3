@@ -22,7 +22,7 @@ public class MapTile extends Node {
         this.position = position;
 
         this.context = Infinity.instance.context;
-        Infinity.instance.nodeList.add(this);
+        //Infinity.instance.nodeList.add(this);
 
         this.x = (int)position.getX();
         this.y = (int)position.getY();
@@ -38,11 +38,12 @@ public class MapTile extends Node {
         return position;
     }
 
-    @Override
-    public void draw() {
+    public void draw(AffineTransform transform) {
         if (!isRenderable)
             return;
-        context.drawImage(image, new AffineTransform(1, 0, 0, 1, this.x, this.y), null);
+        AffineTransform transf = new AffineTransform(transform);
+        transf.translate(x, y);
+        context.drawImage(image, transf, null);
         //context.fillRect(this.x, this.y, this.width.getValue(), this.height.getValue());
     }
 

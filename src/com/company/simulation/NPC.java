@@ -26,7 +26,7 @@ public abstract class NPC extends Node {
         this.frame = 0;
         this.setZIndex(4);
         this.context = Infinity.instance.context;
-        Infinity.instance.nodeList.add(this);
+        //Infinity.instance.nodeList.add(this);
         this.direction = direction;
         loadImages();
     }

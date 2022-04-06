@@ -80,6 +80,10 @@ public class TileMap {
         return navigation;
     }
 
+    public List<MapLayer> getLayers() {
+        return layers;
+    }
+
     private void addLayer(JsonObject layer) {
         if (layer.getString("type").equals("tilelayer")) {
             boolean visible = layer.getBoolean("visible");
