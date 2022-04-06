@@ -39,9 +39,9 @@ public abstract class NPC extends Node {
         }
     }
 
-    public void draw() {
+    public void draw(AffineTransform transform) {
         if (isSpawned) {
-            AffineTransform tx = new AffineTransform();
+            AffineTransform tx = new AffineTransform(transform);
             tx.translate(position.getX(), position.getY());
             if (this.frame > this.animation.get(direction).size() - 1)
                 this.frame = 0;

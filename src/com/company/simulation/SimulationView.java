@@ -47,7 +47,7 @@ public class SimulationView extends Node {
         }
 
         for (NPC npc : npcs) {
-            npc.draw();
+            npc.draw(viewTransform);
         }
     }
 
