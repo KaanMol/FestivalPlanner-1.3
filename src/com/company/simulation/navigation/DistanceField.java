@@ -31,8 +31,8 @@ public class DistanceField {
 
         int minX = (int) area.getBounds().getMinX() / 16;
         int minY = (int) area.getBounds().getMinY() / 16;
-        int maxX = 1 + (int) area.getBounds().getMaxX() / 16;
-        int maxY = 1 + (int) area.getBounds().getMaxY() / 16;
+        int maxX = (int) area.getBounds().getMaxX() / 16;
+        int maxY = (int) area.getBounds().getMaxY() / 16;
 
         for (int y = minY; y < maxY; y++) {
             for (int x = minX; x < maxX; x++) {
