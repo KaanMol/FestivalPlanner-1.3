@@ -45,8 +45,8 @@ public abstract class NPC extends Node {
     public void update() {
         if (isSpawned) {
             if (direction != Direction.STATIC) {
-                    this.oldDirection = direction;
-                }
+                this.oldDirection = direction;
+            }
             setDirection(distanceField.getOptimalDirection((int) position.getX(), (int) position.getY()));
             setPosition(new Point2D.Double(
                     this.position.getX() + this.speed * direction.getX(),
@@ -57,8 +57,7 @@ public abstract class NPC extends Node {
     public void draw(AffineTransform transform) {
         if (isSpawned) {
             AffineTransform tx = new AffineTransform(transform);
-            tx.translate(position.getX() - centerX, position.getY()- centerY);
-            System.out.println(animation);
+            tx.translate(position.getX() - centerX, position.getY() - centerY);
 
             if (this.direction.equals(Direction.STATIC)) {
                 context.drawImage(this.animation.get(oldDirection).get(0), tx, null);
