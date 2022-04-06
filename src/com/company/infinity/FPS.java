@@ -14,16 +14,26 @@ public class FPS extends Node {
     private int fps = 0;
     private LocalTime beginTime;
 
+    /**
+     * Getter for the current FPS
+     * @return the current FPS
+     */
     public int getFPS() {
         return this.fps;
     }
 
+    /**
+     * Starts the FPS counter
+     */
     public void start() {
         this.beginTime = LocalTime.now();
         this.frameCount = 0;
         this.fps = 0;
     }
 
+    /**
+     * Updates the FPS counter
+     */
     @Override
     public void update() {
         this.frameCount++;
@@ -38,6 +48,9 @@ public class FPS extends Node {
         }
     }
 
+    /**
+     * Renders the FPS counter
+     */
     @Override
     public void draw() {
         Infinity.instance.context.setColor(Color.GREEN);
