@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import com.company.infinity.Button;
+import com.company.infinity.FPS;
+
 import java.io.File;
 
 import com.company.infinity.Infinity;
@@ -13,7 +15,9 @@ import com.company.simulation.SimulationView;
 import com.company.simulation.VisitorNPC;
 import com.company.simulation.map.TileMap;
 import com.company.infinity.Sound;
+import com.company.infinity.TabPane;
 import com.company.infinity.Table;
+import com.company.infinity.Text;
 import com.company.infinity.TableCell;
 import com.company.infinity.Unit;
 import com.company.popup.CreateBattlePopup;
@@ -57,17 +61,24 @@ public class Main extends Application {
 
         TileMap map = new TileMap();
         SimulationView view = new SimulationView(map);
+        view.width = Unit.vw(100);
+        view.height = Unit.vh(100).subtract(Unit.px(50));
+        view.y = 50;
+
         for (int i = 0; i < 5; i++) {
             NPC npc = new VisitorNPC(map);
             npc.setTarget(map.getAreas().get((int)(3 * Math.random())));
             npc.spawn();
             view.getNpcs().add(npc);
         }
-
-        infinity.nodeList.add(view);
-        view.width = Unit.vw(100);
-        view.height = Unit.vh(100);
-
+        
+        Schedule schedule = new Schedule(100);
+        
+        TabPane tabPane = new TabPane(0, 0, Unit.vw(100), Unit.vh(100));
+        
+        tabPane.addTab("Schedule");
+        tabPane.addTab("Simulation");
+        tabPane.setActiveTab("Schedule");
 
         new Arena("School");
         new Arena("BattleArena 1");
@@ -80,14 +91,9 @@ public class Main extends Application {
         table.columnsFromList(Arena.list.stream().map(Arena::getArenaName).collect(Collectors.toList()));
         table.rowsFromList(IntStream.range(Config.SCHEDULE_BEGIN_HOUR, Config.SCHEDULE_END_HOUR).boxed().collect(Collectors.toList()));
 
-
-        Button create = new Button(0, 0, Unit.px(100), Unit.px(50), "Create");
-        Button musicPlay = new Button(101, 0, Unit.px(100), Unit.px(50), "Play Music");
-        Button musicPause = new Button(202, 0, Unit.px(100), Unit.px(50), "Pause Music");
-        Button exportButton = new Button(303, 0, Unit.px(100), Unit.px(50), "Export data");
-        Button importButton = new Button(404, 0, Unit.px(100), Unit.px(50), "Import data");
-
-       
+        Button create = new Button(303, 0, Unit.px(100), Unit.px(50), "Create");
+        Button exportButton = new Button(404, 0, Unit.px(100), Unit.px(50), "Export data");
+        Button importButton = new Button(505, 0, Unit.px(100), Unit.px(50), "Import data");
 
         // Sound sound = new Sound("test.mp3");
         // sound.player.setVolume(0.02);
@@ -95,16 +101,6 @@ public class Main extends Application {
         create.onMouseClick(e -> {
             System.out.println("Create triggered!");
             new CreateBattlePopup();
-        });
-
-        musicPlay.onMouseClick(e -> {
-            System.out.println("Starting music");
-            // sound.player.play();
-        });
-
-        musicPause.onMouseClick(e -> {
-            System.out.println("Music paused!");
-            // sound.player.pause();
         });
 
         exportButton.onMouseClick(e -> {
@@ -136,29 +132,11 @@ public class Main extends Application {
             }
         });
 
+        tabPane.addNode("Schedule", create);
+        tabPane.addNode("Schedule", exportButton);
+        tabPane.addNode("Schedule", importButton);
+        tabPane.addNode("Schedule", table);
 
-        
-
-
-        // for (int i = Config.SCHEDULE_BEGIN_HOUR; i < ; i++) {
-        //     table.addRow(i + "");
-        // }
-        
-        // table.addColumn("");
-        // for (int arena = 0; arena < Arena.list.size(); arena++) {
-        //     table.addColumn(Arena.list.get(arena).getArenaName());
-        // }
-
-        // table.addRow("");
-        // for (int i = minHour; i < maxHour; i++) {
-        //     table.addRow(i + "");
-        // }*/
-
-        // Battle battle = Battle.list.get(0);
-        // int xMultiplier = battle.getEndTime().getHour() - battle.getBeginTime().getHour();
-        // TableCell cell = new TableCell(battle.getTrainer1().getName() + " vs " + battle.getTrainer2().getName());
-        
-        // table.addCell(0, battle.getBeginTime().getHour() - minHour, xMultiplier, 0, cell);
-
+        tabPane.addNode("Simulation", view);
     }
 }

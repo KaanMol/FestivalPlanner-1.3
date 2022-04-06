@@ -5,6 +5,10 @@ import java.time.temporal.ChronoUnit;
 
 import java.awt.Color;
 
+/**
+ * FPS component.
+ * This renders the FPS component in the top left corner. 
+ */
 public class FPS extends Node {
     private int frameCount = 0;
     private int fps = 0;

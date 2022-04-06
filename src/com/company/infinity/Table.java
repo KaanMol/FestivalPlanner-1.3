@@ -17,7 +17,6 @@ public class Table extends Node {
         this.y = y;
         this.width = width;
         this.height = height;
-        Infinity.instance.nodeList.add(this);
     }
 
     public void columnsFromList(List columns) {
@@ -69,7 +68,7 @@ public class Table extends Node {
 
     public void updateChildren() {
         this.setWidthAndHeight();
-        ArrayList<Node> children = Infinity.instance.nodeList.nodes;
+        ArrayList<Node> children = Infinity.instance.nodeList.getNodes();
         for (int i = 0; i < children.size(); i++) {
             Node node = children.get(i);
 
