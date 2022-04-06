@@ -5,13 +5,22 @@ import java.util.List;
 import org.jfree.fx.FXGraphics2D;
 import java.awt.Color;
 
+/**
+ * Table Component
+ */
 public class Table extends Node {
-    private NodeList children = new NodeList();
     private Unit rowHeight = Unit.px(0);
     private Unit columnWidth = Unit.px(0);
     private ArrayList<String> columns = new ArrayList<>();
     private ArrayList<String> rows = new ArrayList<>();
 
+    /**
+     * Initializes table
+     * @param x left top x position of the table
+     * @param y left top y position of the table
+     * @param width width of the table
+     * @param height height of the table
+     */
     public Table(int x, int y, Unit width, Unit height) {
         this.x = x;
         this.y = y;
@@ -19,12 +28,20 @@ public class Table extends Node {
         this.height = height;
     }
 
+    /**
+     * Creates columns for each element in the list
+     * @param columns list of strings
+     */
     public void columnsFromList(List columns) {
         for (Object column : columns) {
             this.addColumn(column.toString());
         }
     }
 
+    /**
+     * Adds column to the table
+     * @param name name of the column
+     */
     public void addColumn(String header) {
         if (this.columns.size() == 0) {
             this.columns.add("");
@@ -33,14 +50,20 @@ public class Table extends Node {
         this.columns.add(header);
     }
 
-    
+    /**
+     * Creates rows for each element in the list
+     * @param rows list of strings
+     */
     public void rowsFromList(List rows) {
         for (Object row : rows) {
             this.addRow(row.toString());
         }
     }
 
-
+    /**
+     * Adds row to the table
+     * @param name name of the row
+     */
     public void addRow(String row) {
         if (this.rows.size() == 0) {
             this.rows.add("");
@@ -49,6 +72,14 @@ public class Table extends Node {
         this.rows.add(row);
     }
 
+    /**
+     * Links a TableCell to the table
+     * @param xIndex x index of the cell
+     * @param yIndex y index of the cell
+     * @param xMultiplier float x multiplier of the cell, indicates width percentage of the cell, default: 1
+     * @param yMultiplier float y multiplier of the cell, indicates height percentage of the cell, default: 1
+     * @param child child node
+     */
     public void addCell(int xIndex, int yIndex, float xMultiplier, float yMultiplier, TableCell child) {
         this.setWidthAndHeight();
         child.xIndex = xIndex;
@@ -65,7 +96,23 @@ public class Table extends Node {
 
         Infinity.instance.nodeList.add(child);
     }
+    
+    /**
+     * Creates and adds a table cell to the table
+     * @param xIndex x index of the cell
+     * @param yIndex y index of the cell
+     * @param xMultiplier int x multiplier of the cell, indicates width percentage of the cell, default: 1
+     * @param yMultiplier int y multiplier of the cell, indicates height percentage of the cell, default: 1
+     * @param child child node
+     */
+    public void addCell(int xIndex, int yIndex, int xMultiplier, int yMultiplier, TableCell child) {
+        this.addCell(xIndex, yIndex, xMultiplier, yMultiplier, child);
+    }
 
+
+    /**
+     * Sets width and height of the cells in the table
+     */
     public void updateChildren() {
         this.setWidthAndHeight();
         ArrayList<Node> children = Infinity.instance.nodeList.getNodes();
@@ -88,21 +135,26 @@ public class Table extends Node {
         }
     }
 
-    public void addCell(int xIndex, int yIndex, int xMultiplier, int yMultiplier, TableCell child) {
-        this.addCell(xIndex, yIndex, xMultiplier, yMultiplier, child);
-    }
-
+    /**
+     * Calculates the height and the width for the table
+     */
     private void setWidthAndHeight() {
         this.columnWidth = Unit.px(this.width.getValue() / this.columns.size());
         this.rowHeight = Unit.px(this.height.getValue() / this.rows.size());
     }
 
+    /**
+     * Update method for the table
+     */
     @Override
     public void update() {
         this.setWidthAndHeight();
         this.updateChildren();
     }
 
+    /**
+     * Draws the table
+     */
     @Override
     public void draw() {
         FXGraphics2D context = Infinity.instance.context;
