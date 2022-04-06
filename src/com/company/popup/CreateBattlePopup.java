@@ -3,6 +3,7 @@ package com.company.popup;
 import com.company.Arena;
 import com.company.Battle;
 import com.company.Config;
+import com.company.Schedule;
 import com.company.infinity.Infinity;
 import com.company.infinity.Node;
 import com.company.infinity.Table;
@@ -18,18 +19,23 @@ public class CreateBattlePopup extends BattlePopup {
 
     @Override
     public void apply() {
-        Battle battle = new Battle(LocalTime.parse(beginTime.getText()), LocalTime.parse(endTime.getText()),
-                arena.getValue(), trainer1.getValue(), trainer2.getValue());
-                
-        ArrayList<Node> nodes = Infinity.instance.nodeList.nodes;
+        Battle battle = new Battle(LocalTime.parse(beginTime.getText()), LocalTime.parse(endTime.getText()), 0
+                ,arena.getValue(), trainer1.getValue(), trainer2.getValue());
+
+        int givenPopularity = Integer.parseInt(popularityPercent.getText());
+        if (!battle.populationIsAvailable(givenPopularity)) {
+            givenPopularity = battle.availablePopulationPercent();
+        }
+        battle.setPopularity(givenPopularity);
+
+        ArrayList<Node> nodes = Infinity.instance.nodeList.getNodes();
         Table table = null;
         int xMultiplier = battle.getEndTime().getHour() - battle.getBeginTime().getHour();
         TableCell cell = new TableCell(battle.getTrainer1().getName() + " vs " + battle.getTrainer2().getName());
         cell.onMouseClick(e -> {
             new EditBattlePopup(battle);
-            System.out.println(battle.toString());
         });
-        
+
         for (Node node : nodes) {
             if (node instanceof Table) {
                 table = (Table) node;

@@ -19,12 +19,17 @@ public class EditBattlePopup extends BattlePopup {
         arena.setValue(item.getArena());
         trainer1.setValue(item.getTrainer1());
         trainer2.setValue(item.getTrainer2());
+
+        int givenPopularity = item.getPopularity();
+        item.setPopularity(givenPopularity);
+        String givenProcent = "" + givenPopularity;
+        popularityPercent.setText(givenProcent);
     }
 
     @Override
     public void apply() {
         // Find battle in table
-        ArrayList<Node> nodes = Infinity.instance.nodeList.nodes;
+        ArrayList<Node> nodes = Infinity.instance.nodeList.getNodes();
         String currentCellText = item.getTrainer1().getName() + " vs " + item.getTrainer2().getName();
         
         TableCell cell = null;
@@ -56,6 +61,17 @@ public class EditBattlePopup extends BattlePopup {
         item.setTrainer1(trainer1.getValue());
         item.setTrainer2(trainer2.getValue());
 
+        int givenPopularity = item.getPopularity();
+        if (!item.populationIsAvailable(givenPopularity)) {
+            givenPopularity = item.availablePopulationPercent();
+            item.setPopularity(givenPopularity);
+        } else {
+            givenPopularity = Integer.parseInt(popularityPercent.getText());
+            item.setPopularity(givenPopularity);
+        }
+        String givenProcent = "" + givenPopularity;
+        popularityPercent.setText(givenProcent);
+
         int xMultiplier = item.getEndTime().getHour() - item.getBeginTime().getHour();
         TableCell newCell = new TableCell(item.getTrainer1().getName() + " vs " + item.getTrainer2().getName());
         newCell.onMouseClick(e -> {
@@ -76,8 +92,7 @@ public class EditBattlePopup extends BattlePopup {
 
     @Override
     public void delete() {
-        System.out.println(1);
-        ArrayList<Node> nodes = Infinity.instance.nodeList.nodes;
+        ArrayList<Node> nodes = Infinity.instance.nodeList.getNodes();
         String currentCellText = item.getTrainer1().getName() + " vs " + item.getTrainer2().getName();
         
         TableCell cell = null;
@@ -101,5 +116,4 @@ public class EditBattlePopup extends BattlePopup {
         }
         nodes.remove(cell);
     }
-    
 }

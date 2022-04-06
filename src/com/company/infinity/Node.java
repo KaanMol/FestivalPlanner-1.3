@@ -3,7 +3,10 @@ package com.company.infinity;
 import java.awt.Color;
 import java.util.function.Consumer;
 
-
+/**
+ * Base Node instance.
+ * This is the base class for all nodes in the Infinity game engine.
+ */
 public abstract class Node {
     public int x = 0;
     public int y = 0;
@@ -21,30 +24,53 @@ public abstract class Node {
     public Color hoverColor = Color.GRAY;
     
     /**
-     * 
+     * Gets the z-index of the node.
      * @return the Z-index of this node
      */
     public int getZIndex() {
         return this.zIndex;
     }
 
+    /**
+     * Sets the z-index of the node.
+     * @param zIndex the Z-index of this node
+     */
     public int setZIndex(int zIndex) {
         return this.zIndex = zIndex;
     }
 
+    /**
+     * Gives the hover state
+     * @return the hovers state
+     */
     public boolean hasHover() {
         return this.hasHover;
     }
 
+    /**
+     * Empty draw method that will be overridden by the child classes.
+     */
     public void draw() {}
 
+     /**
+     * Empty update method that will be overridden by the child classes.
+     */
     public void update() {}
 
+    /**
+     * Sets the callback for when a node is clicked on
+     */
     public void onMouseClick(Consumer<Mouse> callback) {
         this.hasHover = true;
         this.callback = callback;
     }
-
+    
+    /**
+     * Checks if the element is in bounds of the mouse.
+     * @param x the x coordinate of the mouse
+     * @param y the y coordinate of the mouse
+     * @return true if the mouse is in bounds of the element
+     */
     public boolean inBounds(int x, int y) {
         boolean inHorizontal = x > this.x && x < this.x + this.width.getValue();
         boolean inVertical = y > this.y && y < this.y + this.height.getValue();
